@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.paril.mlaclientapp.R;
+import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
 import com.paril.mlaclientapp.webservice.APIInterface;
 import com.paril.mlaclientapp.webservice.Api;
@@ -27,6 +28,7 @@ import android.util.Base64;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.KeyPair;
@@ -37,6 +39,7 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.ECGenParameterSpec;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -50,6 +53,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.paril.mlaclientapp.ui.activity.KeyHelper.decryptData;
+import static com.paril.mlaclientapp.ui.activity.KeyHelper.getGroupKey;
+
 public class MLASocialNetwork extends AppCompatActivity {
 
     Button openLoginScreen;
@@ -60,14 +66,16 @@ public class MLASocialNetwork extends AppCompatActivity {
     TextView groupKeyTV;
     TextView secretKeyTV;
     TextView groupKeyEncryptedTV;
-//    TextView pubKeyTV;
+    TextView groupKeyDecryptedTV;
+    //    TextView pubKeyTV;
 //    TextView pubKeyTV;
 //
     EditText registerScreenFullName;
     EditText registerScreenEmail;
     EditText registerScreenPassword;
 
-    String publicKey, privateKey;
+    String publicKeyString, encryptedGroupKey;
+
     String TAG = "StoreInKeyStore";
 
     private static final String AndroidKeyStore = "AndroidKeyStore";
@@ -84,6 +92,8 @@ public class MLASocialNetwork extends AppCompatActivity {
         secretKeyTV = (TextView) findViewById(R.id.register_screen_secret_key);
         groupKeyTV = (TextView) findViewById(R.id.register_screen_group_Key);
         groupKeyEncryptedTV = (TextView) findViewById(R.id.register_screen_group_key_enc);
+        groupKeyDecryptedTV = (TextView) findViewById(R.id.register_screen_group_key_dec);
+
 
         registerNewUserBtn = (Button) findViewById(R.id.register_screen_register_btn);
 
@@ -91,46 +101,37 @@ public class MLASocialNetwork extends AppCompatActivity {
         registerScreenEmail = (EditText) findViewById(R.id.register_screen_email);
         registerScreenPassword = (EditText) findViewById(R.id.register_screen_password);
 
-        // Keys test
-        KeyHelper.Keys keys1 = KeyHelper.retrieveKey("key1");
-        pubKeyTV.setText("Public Key: \n" + keys1.getPubKeyBytesString());
-        privKeyTV.setText("Private Key Ref: \n" + keys1.getPrivateKey().toString());
 
-        try {
-            SecretKey key2 = KeyHelper.getSecretKey("key2");
-            SecretKey groupkey1 = KeyHelper.getSecretKey("groupkey1");
-            System.out.println(key2.toString());
-            secretKeyTV.setText("Secret Key:\n" + key2.toString());
-            groupKeyTV.setText("Group Key:\n" + groupkey1.toString());
 
-            encryptGroupKey("encryptedGroupKey1", keys1.getPubKeyBytesString(), groupkey1);
+        // group key encrypted using public key
+//            byte[] encGrpKeyBytes = KeyHelper.encryptTextWithGivenKey(generateGroupKey, keys1.getPublicKey());
+//            System.out.println("encGrpKeyBytes........ " + encGrpKeyBytes);
+//        try {
+//            String encGrpKey = KeyHelper.getGroupKey();
+//
+//            groupKeyEncryptedTV.setText(
+//                    "Group Key (Encrypted with public key):\n"
+//                            + encGrpKey);
+//        } catch (NoSuchPaddingException
+//                | NoSuchAlgorithmException
+//                | InvalidKeyException
+//                | BadPaddingException
+//                | IllegalBlockSizeException
+//                | UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (SignatureException e) {
-            e.printStackTrace();
-        } catch (UnrecoverableEntryException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        }
 
-//        System.out.println("Public key.................." + keys1.getPubKeyBytesString());
-//        System.out.println("Private key.................." + keys1.getPrivKeyBytesString());
+        // decrypting the group key
+//            String decryptedGroupKey = KeyHelper.decryptData("key1", encGrpKeyBytes);
+
+
+//            System.out.println("decryptedGroupKey" + decryptedGroupKey);
+//            groupKeyDecryptedTV.setText(
+//                    "Group Key (Decrypted with private key):\n"
+//                    + decryptedGroupKey
+//            );
+
 
 //         open login activity
         openLoginScreen = (Button) findViewById(R.id.register_screen_login_btn);
@@ -162,6 +163,7 @@ public class MLASocialNetwork extends AppCompatActivity {
 
     }
 
+
     public void hideKeyboard() {
         // Check if no view has focus:
         View view = this.getCurrentFocus();
@@ -178,110 +180,60 @@ public class MLASocialNetwork extends AppCompatActivity {
         snackbar.show();
     }
 
-    void encryptGroupKey(String alias, String textToEncrypt, SecretKey givenkey) throws IOException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnrecoverableEntryException, InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchProviderException, SignatureException, KeyStoreException, IllegalBlockSizeException {
-        byte[] groupKeyEncrypted = KeyHelper.encryptTextWithGivenKey(alias, textToEncrypt, givenkey);
-        String encryptedGroupKeyString = Base64.encodeToString(groupKeyEncrypted, Base64.NO_WRAP);
-        System.out.println("encryptedGroupKeyString: " + encryptedGroupKeyString);
-
-        String TestPhrase = "Hello World!";
-        byte[] encTestPhrase = KeyHelper.encryptTextWithGivenKey("encTestPhrase", TestPhrase, givenkey);
-
-
-        // encrypt testphrase with original groupkey
-        // encrypt testphrase with decrypted groupkey
-        KeyHelper.generateRandomString();
-
-
-        groupKeyEncryptedTV.setText("Encrypted Group Key: \n" + encryptedGroupKeyString);
-    }
-
-
-
     private void createUser() throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, InvalidAlgorithmParameterException, UnrecoverableEntryException {
 
         String fullname = registerScreenFullName.getText().toString();
         String email = registerScreenEmail.getText().toString();
         String password = registerScreenPassword.getText().toString();
 
+        try {
 
-        // generate key pair
-//        try {
+            String alias = "OWNER_34_GRP_76";
+            KeyHelper.NewUserKeys newKeys = getGroupKey(alias, getApplicationContext());
+            publicKeyString = newKeys.getPubKey();
+            encryptedGroupKey = newKeys.getCipheredGroupKey();
 
-//            Calendar start = Calendar.getInstance();
-//            Calendar end = Calendar.getInstance();
-//            end.add(Calendar.YEAR, 30);
+            decryptData(alias, encryptedGroupKey);
 
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (UnrecoverableEntryException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
 
-//                privateKey = keys1.getPrivKeyBytesString();
-//                publicKey = keys1.getPublicKey().toString();
+        System.out.println("encrypted public key .............. " + encryptedGroupKey);
 
-
-//            KeyPairGenerator sr = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA);
-//            SecureRandom random = new SecureRandom();
-//            sr.initialize(1024, random);
-//            KeyPair kp = sr.generateKeyPair();
-//
-//            String algo = sr.getAlgorithm();
-//            System.out.println("Algorithm : " + algo);
-//
-//            byte[] privateKeyEnc = kp.getPrivate().getEncoded(); //store private key as byte stream
-//            byte[] publicKeyEnc = kp.getPublic().getEncoded(); //store public key as byte stream
-//
-//            publicKey = new String(Base64.encodeToString(publicKeyEnc, Base64.NO_WRAP));
-//            privateKey = new String(Base64.encodeToString(privateKeyEnc, Base64.NO_WRAP)); //encode to base64 format and store it as string
-//
-//            Toast.makeText(MLASocialNetwork.this, privateKey, Toast.LENGTH_LONG).show();
-
-        System.out.println("private key .............. " + privateKey);
-        System.out.println("public key .............. " + publicKey);
-
-
-        // store private key in keystore
-//            KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
-//            keyStore.load(null);
-//
-//            String alias = "key3";
-//
-//            int nBefore = keyStore.size();
-
-        // Create the keys if necessary
-//            if (!keyStore.containsAlias(alias)) {
-//
-//                KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(MLASocialNetwork.this)
-//                        .setAlias(alias)
-//                        .setKeyType(KeyProperties.KEY_ALGORITHM_RSA)
-//                        .setKeySize(2048)
-//                        .setSubject(new X500Principal("CN=test"))
-//                        .setSerialNumber(BigInteger.TEN)
-//                        .setStartDate(start.getTime())
-//                        .setEndDate(end.getTime())
-//                        .build();
-//                KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA", "AndroidKeyStore");
-//                generator.initialize(spec);
-//
-//                KeyPair keyPair = generator.generateKeyPair();
-//            }
-//            int nAfter = keyStore.size();
-//            Log.v(TAG, "Before = " + nBefore + " After = " + nAfter);
-//
-//            // Retrieve the keys
-//            KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(alias, null);
-//            PrivateKey privateKey2 = privateKeyEntry.getPrivateKey();
-//            PublicKey publicKey2 = privateKeyEntry.getCertificate().getPublicKey();
-//
-//            Log.v(TAG, "private key = " + privateKey2.toString());
-//            Log.v(TAG, "public key = " + publicKey2.toString());
-
-        Call<SNUser> call = Api.getClient().registerNewUser(
+        Call<SNRegisterNewUser> call = Api.getClient().registerNewUser(
                 email,
                 password,
-                publicKey,
-                fullname
+                publicKeyString,
+                fullname,
+                encryptedGroupKey
         );
 
-        call.enqueue(new Callback<SNUser>() {
+        call.enqueue(new Callback<SNRegisterNewUser>() {
             @Override
-            public void onResponse(Call<SNUser> call, Response<SNUser> response) {
+            public void onResponse(Call<SNRegisterNewUser> call, Response<SNRegisterNewUser> response) {
                 if (response.code() != 302) {
                     registerScreenPostResponse.setText("Response Code : " + response.code() + " " + response.toString());
                     return;
@@ -289,28 +241,14 @@ public class MLASocialNetwork extends AppCompatActivity {
 
                 showSnackBar("User Registered Successfully !", findViewById(R.id.activity_social_main));
 
-//                    KeyHelper.retrieveKey("key2");
-
-//                    registerScreenPostResponse.setText("User Registered Successfully !");
-
-//                    registerScreenPostResponse.setText(response.toString());
             }
 
             @Override
-            public void onFailure(Call<SNUser> call, Throwable t) {
+            public void onFailure(Call<SNRegisterNewUser> call, Throwable t) {
                 registerScreenPostResponse.setText(t.getMessage());
             }
         });
-//        }
-//        catch (NoSuchAlgorithmException e) {
-//
-//            System.out.println("Exception thrown : " + e);
-//        } catch (ProviderException e) {
-//
-//            System.out.println("Exception thrown : " + e);
-//        } catch (KeyStoreException | CertificateException | IOException | NoSuchProviderException | InvalidAlgorithmParameterException | UnrecoverableEntryException e) {
-//            Log.e(TAG, Log.getStackTraceString(e));
-//        }
+
 
     }
 

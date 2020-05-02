@@ -6,11 +6,58 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c5f0c15-f186-4650-a5b3-8de817089aff" name="Default" comment="" />
+    <list default="true" id="1c5f0c15-f186-4650-a5b3-8de817089aff" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNRegisterNewUser.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/KeyHelper$Keys.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/KeyHelper.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/KeyHelper.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/webservice/APIInterface.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/paril/mlaclientapp/webservice/APIInterface.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/zip-cache/X3WvgLAJ_Spy1LoAwPMBz85gEcY=" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/zip-cache/X3WvgLAJ_Spy1LoAwPMBz85gEcY=" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/debug_3f35a931f2d5cebed7591c78b9c18d438f4ab796.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/pre-dexed/debug/debug_3f35a931f2d5cebed7591c78b9c18d438f4ab796.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-armeabi-v7a-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-armeabi-v7a-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug-androidTest.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-universal-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-universal-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-x86-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-x86-debug.ap_" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-x86-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-x86-debug.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/anim.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/anim.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/color.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/color.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-hdpi-v4.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-mdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-mdpi-v4.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xhdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xhdpi-v4.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxhdpi-v4.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxxhdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable-xxxhdpi-v4.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/drawable.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/layout.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/dex-renamer-state.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/file-input-save-data.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageX86Debug/file-input-save-data.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/armeabi-v7a/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/armeabi-v7a/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/x86/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/x86/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/KeyHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/KeyHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,14 +83,50 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MLASocialNetwork.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MLASocialNetwork.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="187" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+            <state relative-caret-position="192">
+              <caret line="225" column="61" lean-forward="false" selection-start-line="225" selection-start-column="61" selection-end-line="225" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5107#5638#0" expanded="true" />
+                <element signature="e#5637#5638#0" expanded="true" />
+                <element signature="e#5688#6150#0" expanded="true" />
+                <element signature="e#6149#6150#0" expanded="true" />
+                <element signature="method#hideKeyboard#0;class#MLASocialNetwork#0" expanded="false" />
+                <element signature="method#showSnackBar#0;class#MLASocialNetwork#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="APIInterface.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="162" column="139" lean-forward="false" selection-start-line="162" selection-start-column="139" selection-end-line="162" selection-end-column="139" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SNUser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SNRegisterNewUser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNRegisterNewUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -51,16 +134,14 @@
       <file leaf-file-name="KeyHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/KeyHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="231" column="24" lean-forward="false" selection-start-line="231" selection-start-column="24" selection-end-line="231" selection-end-column="24" />
+            <state relative-caret-position="425">
+              <caret line="210" column="42" lean-forward="false" selection-start-line="210" selection-start-column="42" selection-end-line="210" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4764#4765#0" expanded="true" />
-                <element signature="e#4802#4803#0" expanded="true" />
-                <element signature="e#4845#4846#0" expanded="true" />
-                <element signature="e#4882#4883#0" expanded="true" />
-                <element signature="e#7190#7191#0" expanded="true" />
-                <element signature="e#7223#7224#0" expanded="true" />
+                <element signature="e#15617#15618#0" expanded="true" />
+                <element signature="e#15664#15665#0" expanded="true" />
+                <element signature="e#15701#15702#0" expanded="true" />
+                <element signature="e#15738#15739#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -137,19 +218,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>C</find>
-      <find>Change</find>
-      <find>Socia</find>
-      <find>Social</find>
-      <find>Social N</find>
-      <find>Social Ne</find>
-      <find>Social Net</find>
-      <find>Social Netwo</find>
-      <find>Social Networ</find>
-      <find>startac</find>
-      <find>http</find>
-      <find>send</find>
-      <find>sent</find>
       <find>api</find>
       <find>getClient()</find>
       <find>exec</find>
@@ -163,14 +231,30 @@
       <find>.</find>
       <find>RSA</find>
       <find>k</find>
-      <find>key</find>
-      <find>keys</find>
       <find>s</find>
       <find>store</find>
+      <find>getpri</find>
+      <find>key</find>
+      <find>retrieveKey</find>
+      <find>retr</find>
+      <find>genke</find>
+      <find>keys</find>
+      <find>keys</find>
+      <find>keys</find>
+      <find>newuse</find>
+      <find>encode</find>
+      <find>pubke</find>
+      <find>genGrpKeyBytes</find>
+      <find>retri</find>
+      <find>sn</find>
+      <find>snus</find>
     </findStrings>
     <replaceStrings>
       <replace />
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -2369,13 +2453,14 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/SN_Login.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/Notes" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNUser.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLALoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_mlasocial_network.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/KeyHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNUser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNRegisterNewUser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java" />
       </list>
     </option>
   </component>
@@ -2385,6 +2470,7 @@
     <option name="width" value="1296" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
@@ -2476,6 +2562,104 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Gradle Scripts" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mla" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mla" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mlaclientapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mla" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mlaclientapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mla" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mlaclientapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mla" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mlaclientapp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2582,7 +2766,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588377675342" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588397258447" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2630,7 +2814,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588377675342" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588397258447" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2813,7 +2997,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588377675343" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1588397258447" />
       </method>
     </configuration>
     <list size="1">
@@ -2874,9 +3058,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50593823" sideWeight="0.1512945" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908848" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30846325" sideWeight="0.49786097" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14251782" sideWeight="0.4854369" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4263658" sideWeight="0.84870553" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4239905" sideWeight="0.84870553" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2907,13 +3091,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/appcompat-v7/25.3.0/appcompat-v7-25.3.0-sources.jar!/android/support/v7/app/ActionBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="388" column="25" lean-forward="false" selection-start-line="388" selection-start-column="25" selection-end-line="388" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/drawer_mla_primary.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
@@ -3149,13 +3326,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/MLARegisterUsers.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -3175,13 +3345,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="145" column="22" lean-forward="false" selection-start-line="145" selection-start-column="22" selection-end-line="145" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2176">
-          <caret line="155" column="17" lean-forward="false" selection-start-line="155" selection-start-column="17" selection-end-line="155" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -3263,14 +3426,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-24/java/security/KeyStore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9520">
@@ -3320,29 +3475,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/KeyHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="231" column="24" lean-forward="false" selection-start-line="231" selection-start-column="24" selection-end-line="231" selection-end-column="24" />
+        <state relative-caret-position="425">
+          <caret line="210" column="42" lean-forward="false" selection-start-line="210" selection-start-column="42" selection-end-line="210" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4764#4765#0" expanded="true" />
-            <element signature="e#4802#4803#0" expanded="true" />
-            <element signature="e#4845#4846#0" expanded="true" />
-            <element signature="e#4882#4883#0" expanded="true" />
-            <element signature="e#7190#7191#0" expanded="true" />
-            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#15617#15618#0" expanded="true" />
+            <element signature="e#15664#15665#0" expanded="true" />
+            <element signature="e#15701#15702#0" expanded="true" />
+            <element signature="e#15738#15739#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNRegisterNewUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/model/SNUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/ui/activity/MLASocialNetwork.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="187" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+        <state relative-caret-position="192">
+          <caret line="225" column="61" lean-forward="false" selection-start-line="225" selection-start-column="61" selection-end-line="225" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5107#5638#0" expanded="true" />
+            <element signature="e#5637#5638#0" expanded="true" />
+            <element signature="e#5688#6150#0" expanded="true" />
+            <element signature="e#6149#6150#0" expanded="true" />
+            <element signature="method#hideKeyboard#0;class#MLASocialNetwork#0" expanded="false" />
+            <element signature="method#showSnackBar#0;class#MLASocialNetwork#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/paril/mlaclientapp/webservice/APIInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="162" column="139" lean-forward="false" selection-start-line="162" selection-start-column="139" selection-end-line="162" selection-end-column="139" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -9,6 +9,7 @@ import com.paril.mlaclientapp.model.MLAStudentDetails;
 import com.paril.mlaclientapp.model.MLAStudentEnrollmentPostData;
 import com.paril.mlaclientapp.model.MLASubjectDetails;
 import com.paril.mlaclientapp.model.MLATaskDetails;
+import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
 
 import java.util.ArrayList;
@@ -152,10 +153,13 @@ public interface APIInterface {
 
     // Social Network App - Spring 2020 - Gaurav Bora
 
-    @POST("api/Social/PostAddAdmin")
-    Call<SNUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKey") String publicKey, @Query("fullname") String fullname);
+//    @POST("api/Social/PostAddAdmin")
+//    Call<SNUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKey") String publicKey, @Query("fullname") String fullname);
 
 //    @POST("api/Social/PostAddAdmin")
 //    Call<SNUser> registerNewUser(@Body SNUser newUser);
+
+    @POST("api/Social/RegisterNewUser")
+    Call<SNRegisterNewUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKeyString") String publicKey, @Query("fullname") String fullname, @Query("encryptedGroupKey") String encryptedGroupKey);
 
 }
