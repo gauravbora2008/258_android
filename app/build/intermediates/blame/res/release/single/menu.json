@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\menu\\menu_schedule_add.xml",
+        "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_schedule_add.xml"
+    },
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\menu\\menu_edit.xml",
+        "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_edit.xml"
+    },
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\menu\\menu_update_password.xml",
+        "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_update_password.xml"
+    },
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\menu\\menu_send.xml",
+        "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_send.xml"
+    }
+]

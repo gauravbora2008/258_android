@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\raw\\phone_loud1.mp3",
+        "source": "C:\\mla\\app\\src\\main\\res\\raw\\phone_loud1.mp3"
+    },
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\release\\raw\\progress_tone.wav",
+        "source": "C:\\mla\\app\\src\\main\\res\\raw\\progress_tone.wav"
+    }
+]

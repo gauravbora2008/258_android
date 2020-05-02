@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\callbg.9.png",
+        "source": "C:\\mla\\app\\src\\main\\res\\drawable-xhdpi\\callbg.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Paril\\Desktop\\mlaAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\callbg.9.png",
+        "source": "C:\\Users\\Paril\\Desktop\\mlaAndroid\\app\\src\\main\\res\\drawable-xhdpi\\callbg.9.png"
+    },
+    {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\startbg.9.png",
+        "source": "C:\\mla\\app\\src\\main\\res\\drawable-xhdpi\\startbg.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Paril\\Desktop\\mlaAndroid\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\startbg.9.png",
+        "source": "C:\\Users\\Paril\\Desktop\\mlaAndroid\\app\\src\\main\\res\\drawable-xhdpi\\startbg.9.png"
+    }
+]
