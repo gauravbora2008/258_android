@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/write_post_main_activity"
+    tools:context="com.paril.mlaclientapp.ui.activity.WritePostActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/write_post_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:hint="Write Post" />
+
+            <Button
+                android:id="@+id/write_post_submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"></LinearLayout>
+
+        <TextView
+            style="@style/InputLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Group" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

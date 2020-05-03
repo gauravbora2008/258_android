@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -20,17 +21,21 @@ public class Api {
 
     public static APIInterface getClient() {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         OkHttpClient okHTTPS = UnsafeOkHttpClient.getUnsafeOkHttpClient();
 
+//        okHTTPS.interceptors().add(interceptor);
+
         Retrofit.Builder builderHTTPS = new Retrofit.Builder()
+
                 .baseUrl(CommonUtils.MlaBaseURL)
                 .client(okHTTPS)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());
+
         retrofithttps = builderHTTPS.build();
         return retrofithttps.create(APIInterface.class);
 
@@ -63,7 +68,10 @@ public class Api {
 
                 final SSLSocketFactory sslSocketFactory = sslContextHttps.getSocketFactory();
 
-                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+                OkHttpClient.Builder builder = new OkHttpClient.Builder().addInterceptor(interceptor);
                 builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
                 builder.hostnameVerifier (new HostnameVerifier() {
                     @Override

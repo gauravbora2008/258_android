@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/activity_sn__login"
     tools:context="com.paril.mlaclientapp.ui.activity.MLASocialNetwork">
 
     <LinearLayout
@@ -35,16 +36,18 @@
             android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/login_screen_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:text="gb@gmail.com"
             android:ems="10"
             android:hint="@string/sn_register_enter_email"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/login_screen_password"
+            android:text="password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
@@ -54,6 +57,7 @@
 
         <Button
             android:layout_width="match_parent"
+            android:id="@+id/login_screen_login_btn"
             android:layout_height="50dp"
             android:text="Login" />
 

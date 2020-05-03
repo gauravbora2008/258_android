@@ -40,7 +40,7 @@
         <activity
             android:name=".ui.activity.MLALoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MLAHomeActivity"
             android:label="@string/title_activity_login"
@@ -83,7 +83,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.SN_Login" android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.activity.SN_Login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activity.SNHomeActivity"
+            android:label="@string/title_activity_snhome"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.activity.WritePostActivity" />
+        <activity android:name=".ui.activity.ViewPostsActivity" />
+        <activity android:name=".ui.activity.CreateGroupActivity" />
+        <activity android:name=".ui.activity.ViewGroupsActivity" />
+        <activity android:name=".ui.activity.AddFriendsActivity"></activity>
     </application>
 
 </manifest>

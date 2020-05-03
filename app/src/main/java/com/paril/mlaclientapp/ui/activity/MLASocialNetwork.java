@@ -27,8 +27,14 @@ import com.paril.mlaclientapp.webservice.Api;
 import android.util.Base64;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.KeyPair;
@@ -49,9 +55,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.security.auth.x500.X500Principal;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static com.paril.mlaclientapp.ui.activity.KeyHelper.decryptData;
 import static com.paril.mlaclientapp.ui.activity.KeyHelper.getGroupKey;
@@ -100,7 +109,6 @@ public class MLASocialNetwork extends AppCompatActivity {
         registerScreenFullName = (EditText) findViewById(R.id.register_screen_fullname);
         registerScreenEmail = (EditText) findViewById(R.id.register_screen_email);
         registerScreenPassword = (EditText) findViewById(R.id.register_screen_password);
-
 
 
         // group key encrypted using public key
@@ -161,6 +169,8 @@ public class MLASocialNetwork extends AppCompatActivity {
             }
         });
 
+        hideKeyboard();
+
     }
 
 
@@ -173,7 +183,7 @@ public class MLASocialNetwork extends AppCompatActivity {
         }
     }
 
-    public void showSnackBar(String message, View view) {
+    public static void showSnackBar(String message, View view) {
         Snackbar snackbar = Snackbar
                 .make(view, message, Snackbar.LENGTH_LONG);
 
@@ -223,7 +233,7 @@ public class MLASocialNetwork extends AppCompatActivity {
 
         System.out.println("encrypted public key .............. " + encryptedGroupKey);
 
-        Call<SNRegisterNewUser> call = Api.getClient().registerNewUser(
+        Call<SNRegisterNewUser> registrationCall = Api.getClient().registerNewUser(
                 email,
                 password,
                 publicKeyString,
@@ -231,9 +241,30 @@ public class MLASocialNetwork extends AppCompatActivity {
                 encryptedGroupKey
         );
 
-        call.enqueue(new Callback<SNRegisterNewUser>() {
+        registrationCall.enqueue(new Callback<SNRegisterNewUser>() {
             @Override
             public void onResponse(Call<SNRegisterNewUser> call, Response<SNRegisterNewUser> response) {
+
+                BufferedReader reader = null;
+                StringBuilder sb = new StringBuilder();
+                try {
+                    reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                String finallyError = sb.toString();
+
+                if (finallyError.contains("Already Exists")) {
+                    showSnackBar("User Already Exists!", findViewById(R.id.activity_social_main));
+                }
+
                 if (response.code() != 302) {
                     registerScreenPostResponse.setText("Response Code : " + response.code() + " " + response.toString());
                     return;
@@ -250,6 +281,18 @@ public class MLASocialNetwork extends AppCompatActivity {
         });
 
 
+    }
+
+    public class ModelError {
+        private String Message;
+
+        public String getMessage() {
+            return Message;
+        }
+
+        public void setMessage(String Message) {
+            this.Message = Message;
+        }
     }
 
 }

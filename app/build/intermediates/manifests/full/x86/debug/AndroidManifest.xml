@@ -97,6 +97,15 @@
         <activity
             android:name="com.paril.mlaclientapp.ui.activity.SN_Login"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.paril.mlaclientapp.ui.activity.SNHomeActivity"
+            android:label="@string/title_activity_snhome"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.WritePostActivity" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.ViewPostsActivity" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.CreateGroupActivity" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.ViewGroupsActivity" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.AddFriendsActivity" />
 
         <service
             android:name="com.sinch.android.rtc.internal.client.gcm.InstanceIDTokenService"

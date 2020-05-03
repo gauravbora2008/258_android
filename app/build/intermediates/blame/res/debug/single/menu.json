@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_snhome.xml",
+        "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_snhome.xml"
+    },
+    {
         "merged": "C:\\mla\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_send.xml",
         "source": "C:\\mla\\app\\src\\main\\res\\menu\\menu_send.xml"
     },

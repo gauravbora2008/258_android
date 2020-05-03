@@ -79,14 +79,14 @@ public class MLALoginActivity extends BaseActivity {
         getSupportActionBar().setTitle("Sign In");
 
         // New intent for MLASocial Activity
-        openSocialNetworkBtn = (Button) findViewById(R.id.openSocialBtn);
-        openSocialNetworkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent openSocialIntent = new Intent(MLALoginActivity.this, MLASocialNetwork.class);
-                startActivity(openSocialIntent);
-            }
-        });
+//        openSocialNetworkBtn = (Button) findViewById(R.id.openSocialBtn);
+//        openSocialNetworkBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent openSocialIntent = new Intent(MLALoginActivity.this, MLASocialNetwork.class);
+//                startActivity(openSocialIntent);
+//            }
+//        });
 
         prefsManager=new PrefsManager(this);
         register = new MLARegisterUsers();
@@ -157,7 +157,7 @@ public class MLALoginActivity extends BaseActivity {
                 startActivity(mlaActivity);
                 finish();
             } else {
-                showSnackBar("User Name/Password is incorrect. Please enter correct credentials.", findViewById(R.id.activity_main_coordinatorLayout));
+                showSnackBar("User Name/Password is incorrect. Please enter correct credentials.", findViewById(R.id.activity_sn__login));
             }
         }
 

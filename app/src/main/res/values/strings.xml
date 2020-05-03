@@ -120,5 +120,6 @@
     <string name="sn_register_enter_name">Enter Name</string>
     <string name="sn_register_enter_email">Enter Email</string>
     <string name="sn_register_enter_password">Enter Password</string>
+    <string name="title_activity_snhome">SNHomeActivity</string>
 
 </resources>

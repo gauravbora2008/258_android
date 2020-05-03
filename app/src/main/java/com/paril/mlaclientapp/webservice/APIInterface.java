@@ -1,5 +1,6 @@
 package com.paril.mlaclientapp.webservice;
 
+import com.paril.mlaclientapp.model.GetGroupsModel;
 import com.paril.mlaclientapp.model.MLAAdminDetails;
 import com.paril.mlaclientapp.model.MLAGradeTask;
 import com.paril.mlaclientapp.model.MLAInstructorDetails;
@@ -11,6 +12,7 @@ import com.paril.mlaclientapp.model.MLASubjectDetails;
 import com.paril.mlaclientapp.model.MLATaskDetails;
 import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
+import com.paril.mlaclientapp.model.SNUserLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,5 +163,14 @@ public interface APIInterface {
 
     @POST("api/Social/RegisterNewUser")
     Call<SNRegisterNewUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKeyString") String publicKey, @Query("fullname") String fullname, @Query("encryptedGroupKey") String encryptedGroupKey);
+
+    @POST("api/Social/LoginAuth")
+    Call<List<SNUserLogin>> loginAuth(@Query("username") String username, @Query("password") String password);
+
+    @POST("api/Social/CreateNewGroup")
+    Call<String> createNewGroup(@Query("owner_id") String owner_id, @Query("group_name") String group_name, @Query("encryptedGroupKey") String encryptedGroupKey);
+
+    @GET("api/Social/GetJoinedGroups")
+    Call<List<GetGroupsModel>> getJoinedGroups(@Query("memberId") String memberId);
 
 }
