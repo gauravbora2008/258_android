@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_requests_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.paril.mlaclientapp.ui.activity.AddRequestsActivity">
+
+    <TextView
+        android:id="@+id/add_requests_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Group Requests" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/add_requests_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_dark_background"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
+</RelativeLayout>

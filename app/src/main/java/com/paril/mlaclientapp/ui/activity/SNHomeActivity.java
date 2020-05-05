@@ -20,6 +20,7 @@ public class SNHomeActivity extends AppCompatActivity implements View.OnClickLis
     Button createGroupBtn;
     Button viewGroupsBtn;
     Button addFriendsBtn;
+    Button addRequestsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,14 @@ public class SNHomeActivity extends AppCompatActivity implements View.OnClickLis
         viewGroupsBtn = (Button) findViewById(R.id.view_groups_btn);
         createGroupBtn = (Button) findViewById(R.id.create_group_btn);
         addFriendsBtn = (Button) findViewById(R.id.add_friends_btn);
+        addRequestsBtn = (Button) findViewById(R.id.add_req_btn);
 
         writePostBtn.setOnClickListener(this);
         viewPostsBtn.setOnClickListener(this);
         viewGroupsBtn.setOnClickListener(this);
         createGroupBtn.setOnClickListener(this);
         addFriendsBtn.setOnClickListener(this);
+        addRequestsBtn.setOnClickListener(this);
 
     }
 
@@ -52,17 +55,31 @@ public class SNHomeActivity extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(SNHomeActivity.this, ViewPostsActivity.class);
                 break;
 
-            case R.id.view_groups_btn:
-                intent = new Intent(SNHomeActivity.this, ViewGroupsActivity.class);
-                break;
             case R.id.add_friends_btn:
                 intent = new Intent(SNHomeActivity.this, AddFriendsActivity.class);
                 break;
+
             case R.id.create_group_btn:
                 intent = new Intent(SNHomeActivity.this, CreateGroupActivity.class);
                 break;
 
+            case R.id.view_groups_btn:
+                intent = new Intent(SNHomeActivity.this, ViewGroupsActivity.class);
+                break;
+
+            case R.id.add_req_btn:
+                intent = new Intent(SNHomeActivity.this, AddRequestsActivity.class);
+                break;
+
         }
+
+        Intent currentIntent = getIntent();
+
+        intent.putExtra("user_id", currentIntent.getStringExtra("user_id"));
+        intent.putExtra("fullname", currentIntent.getStringExtra("fullname"));
+        intent.putExtra("publicKey", currentIntent.getStringExtra("publicKey"));
+        intent.putExtra("username", currentIntent.getStringExtra("username"));
+
         startActivity(intent);
     }
 }

@@ -40,14 +40,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="gb@gmail.com"
+            android:text="gaurav@bora.com"
             android:ems="10"
             android:hint="@string/sn_register_enter_email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/login_screen_password"
-            android:text="password"
+            android:text="passtest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"

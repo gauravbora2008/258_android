@@ -15,7 +15,7 @@ import android.widget.EditText;
 import com.paril.mlaclientapp.R;
 import com.paril.mlaclientapp.model.SNUserLogin;
 import com.paril.mlaclientapp.util.CommonUtils;
-import com.paril.mlaclientapp.util.PrefsManager;
+import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class SN_Login extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     SNUserLogin login;
-    private PrefsManager prefsManager;
+    private SNPrefsManager prefsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,6 @@ public class SN_Login extends AppCompatActivity {
         usernameTxt = (EditText) findViewById(R.id.login_screen_username);
         passwordTxt = (EditText) findViewById(R.id.login_screen_password);
 
-        prefsManager = new PrefsManager(getApplicationContext());
         login = new SNUserLogin();
 
         // open register activity
@@ -100,8 +99,11 @@ public class SN_Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(SNUserLogin loginArg) {
             hideProgressDialog();
-
             login = loginArg;
+
+            System.out.println(login.toString());
+            System.out.println("login.username========="+ login.username);
+            prefsManager = new SNPrefsManager(getApplicationContext(), login.username);
 
             if (login.user_id != null) {
                 Intent activity = new Intent();
@@ -109,7 +111,7 @@ public class SN_Login extends AppCompatActivity {
                 activity.putExtra("user_id", login.user_id);
                 activity.putExtra("fullname", login.fullname);
                 activity.putExtra("publicKey", login.publicKey);
-                // mayneed to add username later
+                activity.putExtra("username", login.username);
 
                 savingUserInformation();
                 activity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -166,6 +168,9 @@ public class SN_Login extends AppCompatActivity {
         prefsManager.saveData("user_id", login.user_id);
         prefsManager.saveData("fullname", login.fullname);
         prefsManager.saveData("publicKey", login.publicKey);
+        prefsManager.saveData("username", login.username);
+        prefsManager.saveData("key_alias", login.username);
+
         System.out.println("prefsManager ...........: " + prefsManager.getStringData("userId"));
 //        prefsManager.saveData("userType", register.userType);
     }

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:2:1-100:12
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:2:1-101:12
 	package
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from C:\mla\app\src\main\AndroidManifest.xml
@@ -52,7 +52,8 @@ ADDED from C:\mla\app\src\main\AndroidManifest.xml:16:5-73
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:16:22-70
 application
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:18:5-98:19
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:18:5-99:19
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\dell\.android\build-cache\46caedf236da2719e898de7cdb44c25603ab091d\output\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:24.2.1] C:\Users\dell\.android\build-cache\d205e3e6fa4e31f41c18fa74da049c55ae9751d7\output\AndroidManifest.xml:22:5-20
 MERGED from [com.github.reinaldoarrosi:maskededittext:1.1.0] C:\Users\dell\.android\build-cache\132fb3334c7aa9ae44f02748fcee7b153cbc5502\output\AndroidManifest.xml:11:5-53
 MERGED from [mla:sinch-android-rtc-3.11.1:unspecified] C:\Users\dell\.android\build-cache\cc2bc7b74cb7898fb6a23c5110a2f1327edca47a\output\AndroidManifest.xml:11:5-19:19
@@ -229,11 +230,16 @@ ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:9-68
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:19-65
 activity#com.paril.mlaclientapp.ui.activity.AddFriendsActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:9-77
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:9-68
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:19-65
+activity#com.paril.mlaclientapp.ui.activity.AddRequestsActivity
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:98:9-69
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:98:19-66
 uses-sdk
 INJECTED from C:\mla\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\dell\.android\build-cache\46caedf236da2719e898de7cdb44c25603ab091d\output\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:design:24.2.1] C:\Users\dell\.android\build-cache\d205e3e6fa4e31f41c18fa74da049c55ae9751d7\output\AndroidManifest.xml:20:5-43
 MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\dell\.android\build-cache\cadbb35cf6b69f0c149bbd2ff437a48825b1dad0\output\AndroidManifest.xml:6:5-8:41
 MERGED from [com.github.reinaldoarrosi:maskededittext:1.1.0] C:\Users\dell\.android\build-cache\132fb3334c7aa9ae44f02748fcee7b153cbc5502\output\AndroidManifest.xml:7:5-9:41

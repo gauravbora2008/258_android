@@ -1,6 +1,8 @@
 package com.paril.mlaclientapp.webservice;
 
 import com.paril.mlaclientapp.model.GetGroupsModel;
+import com.paril.mlaclientapp.model.GetPostsModel;
+import com.paril.mlaclientapp.model.GetUnjoinedGroupsModel;
 import com.paril.mlaclientapp.model.MLAAdminDetails;
 import com.paril.mlaclientapp.model.MLAGradeTask;
 import com.paril.mlaclientapp.model.MLAInstructorDetails;
@@ -13,6 +15,7 @@ import com.paril.mlaclientapp.model.MLATaskDetails;
 import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
 import com.paril.mlaclientapp.model.SNUserLogin;
+import com.paril.mlaclientapp.model.ViewPendingRequestsItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,12 +158,6 @@ public interface APIInterface {
 
     // Social Network App - Spring 2020 - Gaurav Bora
 
-//    @POST("api/Social/PostAddAdmin")
-//    Call<SNUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKey") String publicKey, @Query("fullname") String fullname);
-
-//    @POST("api/Social/PostAddAdmin")
-//    Call<SNUser> registerNewUser(@Body SNUser newUser);
-
     @POST("api/Social/RegisterNewUser")
     Call<SNRegisterNewUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKeyString") String publicKey, @Query("fullname") String fullname, @Query("encryptedGroupKey") String encryptedGroupKey);
 
@@ -170,7 +167,30 @@ public interface APIInterface {
     @POST("api/Social/CreateNewGroup")
     Call<String> createNewGroup(@Query("owner_id") String owner_id, @Query("group_name") String group_name, @Query("encryptedGroupKey") String encryptedGroupKey);
 
-    @GET("api/Social/GetJoinedGroups")
-    Call<List<GetGroupsModel>> getJoinedGroups(@Query("memberId") String memberId);
+    @POST("api/Social/CreateNewPost")
+    Call<String> createNewPost(@Query("author_id") String author_id, @Query("group_id") String group_id, @Query("post_key") String post_key, @Query("post_data") String post_data, @Query("timestamp") String timestamp);
+
+    @GET("api/Social/GetGroupsByMemberId")
+    Call<List<GetGroupsModel>> GetGroupsByMemberId(@Query("memberId") String memberId);
+
+    @GET("api/Social/GetGroupsByNotAMemberId")
+    Call<List<GetUnjoinedGroupsModel>> GetGroupsByNotAMemberId(@Query("notJoinedMemberId") String notJoinedMemberId);
+
+    @GET("api/Social/GetPosts")
+    Call<List<GetPostsModel>> getPosts(@Query("userId2") String userId);
+
+    @POST("api/Social/CreateNewAddRequest")
+    Call<String> CreateNewAddRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+
+    @GET("api/Social/GetPendingAddRequests")
+    Call<List<ViewPendingRequestsItem>> GetPendingAddRequests(@Query("user_id") String user_id);
+
+    @POST("api/Social/ApproveGroupRequest")
+    Call<String> ApproveGroupRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+
+    @POST("api/Social/DenyGroupRequest")
+    Call<String> DenyGroupRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+
+
 
 }

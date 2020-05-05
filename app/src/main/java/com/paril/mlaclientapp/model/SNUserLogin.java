@@ -9,6 +9,6 @@ public class SNUserLogin {
     public String user_id;
     public String fullname;
     public String publicKey;
-
+    public String username;
 }
 

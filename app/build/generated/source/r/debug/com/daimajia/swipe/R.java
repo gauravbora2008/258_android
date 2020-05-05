@@ -8,13 +8,13 @@ package com.daimajia.swipe;
 
 public final class R {
     public static final class attr {
-        public static final int bottomEdgeSwipeOffset = 0x7f010157;
-        public static final int clickToClose = 0x7f010159;
-        public static final int drag_edge = 0x7f010153;
-        public static final int leftEdgeSwipeOffset = 0x7f010154;
-        public static final int rightEdgeSwipeOffset = 0x7f010155;
-        public static final int show_mode = 0x7f010158;
-        public static final int topEdgeSwipeOffset = 0x7f010156;
+        public static final int bottomEdgeSwipeOffset = 0x7f010162;
+        public static final int clickToClose = 0x7f010164;
+        public static final int drag_edge = 0x7f01015e;
+        public static final int leftEdgeSwipeOffset = 0x7f01015f;
+        public static final int rightEdgeSwipeOffset = 0x7f010160;
+        public static final int show_mode = 0x7f010163;
+        public static final int topEdgeSwipeOffset = 0x7f010161;
     }
     public static final class id {
         public static final int bottom = 0x7f0e000b;
@@ -25,7 +25,7 @@ public final class R {
         public static final int top = 0x7f0e0010;
     }
     public static final class styleable {
-        public static final int[] SwipeLayout = { 0x7f010153, 0x7f010154, 0x7f010155, 0x7f010156, 0x7f010157, 0x7f010158, 0x7f010159 };
+        public static final int[] SwipeLayout = { 0x7f01015e, 0x7f01015f, 0x7f010160, 0x7f010161, 0x7f010162, 0x7f010163, 0x7f010164 };
         public static final int SwipeLayout_bottomEdgeSwipeOffset = 4;
         public static final int SwipeLayout_clickToClose = 6;
         public static final int SwipeLayout_drag_edge = 0;

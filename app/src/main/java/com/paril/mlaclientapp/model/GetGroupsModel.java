@@ -7,4 +7,5 @@ package com.paril.mlaclientapp.model;
 public class GetGroupsModel {
     public int group_id;
     public String group_name;
+    public String group_key;
 }

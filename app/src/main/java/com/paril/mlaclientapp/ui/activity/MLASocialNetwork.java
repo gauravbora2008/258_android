@@ -21,12 +21,14 @@ import android.widget.TextView;
 import com.paril.mlaclientapp.R;
 import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
+import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.APIInterface;
 import com.paril.mlaclientapp.webservice.Api;
 
 import android.util.Base64;
 import android.widget.Toast;
 
+import org.bouncycastle.jce.provider.symmetric.AES;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +48,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -53,6 +56,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.ShortBufferException;
 import javax.security.auth.x500.X500Principal;
 
 import okhttp3.ResponseBody;
@@ -70,15 +74,6 @@ public class MLASocialNetwork extends AppCompatActivity {
     Button openLoginScreen;
     Button registerNewUserBtn;
     TextView registerScreenPostResponse;
-    TextView pubKeyTV;
-    TextView privKeyTV;
-    TextView groupKeyTV;
-    TextView secretKeyTV;
-    TextView groupKeyEncryptedTV;
-    TextView groupKeyDecryptedTV;
-    //    TextView pubKeyTV;
-//    TextView pubKeyTV;
-//
     EditText registerScreenFullName;
     EditText registerScreenEmail;
     EditText registerScreenPassword;
@@ -95,51 +90,28 @@ public class MLASocialNetwork extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mlasocial_network);
 
-        registerScreenPostResponse = (TextView) findViewById(R.id.register_screen_post_response);
-        pubKeyTV = (TextView) findViewById(R.id.register_screen_public_Key);
-        privKeyTV = (TextView) findViewById(R.id.register_screen_private_Key);
-        secretKeyTV = (TextView) findViewById(R.id.register_screen_secret_key);
-        groupKeyTV = (TextView) findViewById(R.id.register_screen_group_Key);
-        groupKeyEncryptedTV = (TextView) findViewById(R.id.register_screen_group_key_enc);
-        groupKeyDecryptedTV = (TextView) findViewById(R.id.register_screen_group_key_dec);
+        try {
+            KeyHelper.initKeyStore();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+//        String a = "Hellow World!";
+//        System.out.println(Arrays.toString(a.getBytes()));
+//        System.out.println(Arrays.toString(new String(a.getBytes()).getBytes()));
+//        System.out.println(Arrays.toString(Base64.decode(a.getBytes(), Base64.NO_PADDING)));
 
         registerNewUserBtn = (Button) findViewById(R.id.register_screen_register_btn);
 
         registerScreenFullName = (EditText) findViewById(R.id.register_screen_fullname);
         registerScreenEmail = (EditText) findViewById(R.id.register_screen_email);
         registerScreenPassword = (EditText) findViewById(R.id.register_screen_password);
-
-
-        // group key encrypted using public key
-//            byte[] encGrpKeyBytes = KeyHelper.encryptTextWithGivenKey(generateGroupKey, keys1.getPublicKey());
-//            System.out.println("encGrpKeyBytes........ " + encGrpKeyBytes);
-//        try {
-//            String encGrpKey = KeyHelper.getGroupKey();
-//
-//            groupKeyEncryptedTV.setText(
-//                    "Group Key (Encrypted with public key):\n"
-//                            + encGrpKey);
-//        } catch (NoSuchPaddingException
-//                | NoSuchAlgorithmException
-//                | InvalidKeyException
-//                | BadPaddingException
-//                | IllegalBlockSizeException
-//                | UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-
-
-        // decrypting the group key
-//            String decryptedGroupKey = KeyHelper.decryptData("key1", encGrpKeyBytes);
-
-
-//            System.out.println("decryptedGroupKey" + decryptedGroupKey);
-//            groupKeyDecryptedTV.setText(
-//                    "Group Key (Decrypted with private key):\n"
-//                    + decryptedGroupKey
-//            );
-
 
 //         open login activity
         openLoginScreen = (Button) findViewById(R.id.register_screen_login_btn);
@@ -198,12 +170,15 @@ public class MLASocialNetwork extends AppCompatActivity {
 
         try {
 
-            String alias = "OWNER_34_GRP_76";
-            KeyHelper.NewUserKeys newKeys = getGroupKey(alias, getApplicationContext());
+            // saving different prefsManagers by the username
+            SNPrefsManager prefsManager = new SNPrefsManager(getApplicationContext(), email);
+            prefsManager.saveData("key_alias", email);
+            String alias = prefsManager.getStringData("key_alias");
+
+            Log.d("Getting alias from prfs", alias);
+            KeyHelper.NewUserKeys newKeys = getGroupKey(getApplicationContext(), alias);
             publicKeyString = newKeys.getPubKey();
             encryptedGroupKey = newKeys.getCipheredGroupKey();
-
-            decryptData(alias, encryptedGroupKey);
 
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
@@ -266,7 +241,7 @@ public class MLASocialNetwork extends AppCompatActivity {
                 }
 
                 if (response.code() != 302) {
-                    registerScreenPostResponse.setText("Response Code : " + response.code() + " " + response.toString());
+                    showSnackBar("Response Code : " + response.code() + " " + response.toString(), findViewById(R.id.activity_social_main));
                     return;
                 }
 
@@ -276,7 +251,7 @@ public class MLASocialNetwork extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SNRegisterNewUser> call, Throwable t) {
-                registerScreenPostResponse.setText(t.getMessage());
+                showSnackBar(t.getMessage(), findViewById(R.id.activity_social_main));
             }
         });
 

@@ -219,6 +219,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\dell\.android\build-cache\46caedf236da2719e898de7cdb44c25603ab091d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8dd49930e4f9dde1a42d37e362b9fea8b1b69c0d">
+        <dex dex="C:\mla\app\build\intermediates\pre-dexed\debug\classes_5bcaece6fab9ddc25b9892bf82c9f89b3018620e.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\dell\.android\build-cache\6ba2787325a1a7d548886b59f618fe44d96a266d\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -252,6 +261,15 @@
         revision="25.0.0"
         sha1="d6a04527c17597019dad82777c5094a3d60d1c33">
         <dex dex="C:\mla\app\build\intermediates\pre-dexed\debug\classes_58fb203d8bbd67dc503e2d0641e3b6ed10c20b48.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\dell\.gradle\caches\modules-2\files-2.1\org.bouncycastle\bcprov-jdk16\1.45\612d4afcd33f05a5ffdd9cf835e3bd4e3b44018\bcprov-jdk16-1.45.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0612d4afcd33f05a5ffdd9cf835e3bd4e3b44018">
+        <dex dex="C:\mla\app\build\intermediates\pre-dexed\debug\bcprov-jdk16-1.45_83da24c5ede5eea51e70ee10912a9ccc2210f8ff.jar" />
     </item>
     <item
         is-multidex="false"

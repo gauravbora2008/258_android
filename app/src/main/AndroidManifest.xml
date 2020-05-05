@@ -94,7 +94,8 @@
         <activity android:name=".ui.activity.ViewPostsActivity" />
         <activity android:name=".ui.activity.CreateGroupActivity" />
         <activity android:name=".ui.activity.ViewGroupsActivity" />
-        <activity android:name=".ui.activity.AddFriendsActivity"></activity>
+        <activity android:name=".ui.activity.AddFriendsActivity" />
+        <activity android:name=".ui.activity.AddRequestsActivity" />
     </application>
 
 </manifest>

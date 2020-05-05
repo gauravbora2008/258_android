@@ -106,6 +106,7 @@
         <activity android:name="com.paril.mlaclientapp.ui.activity.CreateGroupActivity" />
         <activity android:name="com.paril.mlaclientapp.ui.activity.ViewGroupsActivity" />
         <activity android:name="com.paril.mlaclientapp.ui.activity.AddFriendsActivity" />
+        <activity android:name="com.paril.mlaclientapp.ui.activity.AddRequestsActivity" />
 
         <service
             android:name="com.sinch.android.rtc.internal.client.gcm.InstanceIDTokenService"

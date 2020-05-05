@@ -19,7 +19,7 @@ import com.paril.mlaclientapp.R;
 import com.paril.mlaclientapp.model.CreateGroupModel;
 import com.paril.mlaclientapp.model.GetGroupsModel;
 import com.paril.mlaclientapp.util.CommonUtils;
-import com.paril.mlaclientapp.util.PrefsManager;
+import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 import com.sinch.gson.JsonParser;
 
@@ -44,7 +44,7 @@ import javax.crypto.NoSuchPaddingException;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static com.paril.mlaclientapp.ui.activity.KeyHelper.createEncryptedGrpKey;
+import static com.paril.mlaclientapp.ui.activity.KeyHelper.createEncryptedKey;
 import static com.paril.mlaclientapp.ui.activity.MLASocialNetwork.showSnackBar;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -52,9 +52,10 @@ public class CreateGroupActivity extends AppCompatActivity {
     Button createGroupBtn;
     EditText createGroupET;
     TextView myGroupsTV;
+    Intent currentIntent;
 
     ProgressDialog progressDialog;
-    PrefsManager prefsManager;
+    SNPrefsManager prefsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,9 @@ public class CreateGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_group);
         setToolbarTitle("Create Group");
 
-        prefsManager = new PrefsManager(getApplicationContext());
+        currentIntent = getIntent();
+
+        prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
 
         Button createGroupBtn = (Button) findViewById(R.id.enter_grp_name_btn);
         final EditText createGroupET = (EditText) findViewById(R.id.enter_grp_name_ET);
@@ -88,7 +91,7 @@ public class CreateGroupActivity extends AppCompatActivity {
                             String pubKey = prefsManager.getStringData("publicKey");
                             System.out.println("publicKey retrieved is: " + pubKey);
 
-                            String newGroupKeyStr = createEncryptedGrpKey(pubKey);
+                            String newGroupKeyStr = createEncryptedKey(pubKey);
                             String owner_id = prefsManager.getStringData("user_id");
 
                             System.out.println("owner_id for creating new group: " + owner_id);
@@ -189,12 +192,14 @@ public class CreateGroupActivity extends AppCompatActivity {
         @Override
         protected String[] doInBackground(Void... voids) {
 
-            prefsManager = new PrefsManager(getApplicationContext());
+            currentIntent = getIntent();
+
+            prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
 
             List<GetGroupsModel> joinedGroups;
-            String userId = prefsManager.getStringData("userId");
+            String userId = prefsManager.getStringData("user_id");
             System.out.println("Sending Request for userId : " + userId);
-            Call<List<GetGroupsModel>> callAuth = Api.getClient().getJoinedGroups(userId);
+            Call<List<GetGroupsModel>> callAuth = Api.getClient().GetGroupsByMemberId(userId);
             try {
                 Response<List<GetGroupsModel>> respAuth = callAuth.execute();
                 if (respAuth != null && respAuth.isSuccessful() & respAuth.body() != null && respAuth.body().size() > 0) {
