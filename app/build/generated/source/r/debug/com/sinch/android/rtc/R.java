@@ -8,6 +8,6 @@ package com.sinch.android.rtc;
 
 public final class R {
     public static final class id {
-        public static final int none = 0x7f0e001e;
+        public static final int none = 0x7f0f0030;
     }
 }

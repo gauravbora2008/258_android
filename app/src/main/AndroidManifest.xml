@@ -77,15 +77,18 @@
             android:name=".ui.activity.MLASocialNetwork"
             android:label="@string/title_activity_mlasocial_network"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.SN_Login"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/title_activity_mlasocial_network">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.SN_Login"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.SNHomeActivity"
             android:label="@string/title_activity_snhome"

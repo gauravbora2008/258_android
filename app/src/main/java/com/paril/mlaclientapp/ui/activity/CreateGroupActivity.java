@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -28,10 +29,16 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 import java.security.UnrecoverableEntryException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
@@ -45,6 +52,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import static com.paril.mlaclientapp.ui.activity.KeyHelper.createEncryptedKey;
+import static com.paril.mlaclientapp.ui.activity.KeyHelper.keyStore;
 import static com.paril.mlaclientapp.ui.activity.MLASocialNetwork.showSnackBar;
 
 public class CreateGroupActivity extends AppCompatActivity {
@@ -57,6 +65,12 @@ public class CreateGroupActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SNPrefsManager prefsManager;
 
+    PublicKey pubKey;
+
+    String alias;
+
+    List<GetGroupsModel> joinedGroups;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +80,8 @@ public class CreateGroupActivity extends AppCompatActivity {
         currentIntent = getIntent();
 
         prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
+
+        alias = prefsManager.getStringData("key_alias");
 
         Button createGroupBtn = (Button) findViewById(R.id.enter_grp_name_btn);
         final EditText createGroupET = (EditText) findViewById(R.id.enter_grp_name_ET);
@@ -88,35 +104,40 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                         try {
 
-                            String pubKey = prefsManager.getStringData("publicKey");
-                            System.out.println("publicKey retrieved is: " + pubKey);
+                            // generate a random string
+                            byte[] newGroupKeyBytes = KeyHelper2.generateRandomBytes();
 
-                            String newGroupKeyStr = createEncryptedKey(pubKey);
+                            PublicKey myPubKey = (PublicKey) KeyHelper2.deserializeKey(
+                                    KeyHelper2.decodeB64(
+                                            prefsManager.getStringData("publicKey")
+                                    )
+                            );
+
+                            // encrypt group key using my public key
+                            byte[] encNewGrpKey = KeyHelper2.encryptGroupKeyUsingPubKey(myPubKey,
+                                    newGroupKeyBytes);
+
+                            PrivateKey myPrivKey = (PrivateKey) KeyHelper2.deserializeKey(
+                                    KeyHelper2.decodeB64(
+                                            prefsManager.getStringData("privateKey")
+                                    )
+                            );
+
+                            // sign encrypted group key
+                            String newSignature = KeyHelper2.signData(
+                                    KeyHelper2.encodeB64(encNewGrpKey),
+                                    myPrivKey);
+
                             String owner_id = prefsManager.getStringData("user_id");
 
-                            System.out.println("owner_id for creating new group: " + owner_id);
+                            createGroupCall.execute(
+                                    owner_id,
+                                    createGroupET.getText().toString(),
+                                    KeyHelper2.encodeB64(encNewGrpKey),
+                                    newSignature
+                            );
 
-                            System.out.println("createGroupET...................." + createGroupET.getText().toString());
-                            createGroupCall.execute(owner_id, createGroupET.getText().toString(), newGroupKeyStr);
-                        } catch (UnrecoverableEntryException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (KeyStoreException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchPaddingException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeySpecException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeyException e) {
-                            e.printStackTrace();
-                        } catch (BadPaddingException e) {
-                            e.printStackTrace();
-                        } catch (IllegalBlockSizeException e) {
-                            e.printStackTrace();
-                        } catch (CertificateException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
@@ -142,43 +163,23 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            hideProgressDialog();
-        }
-
-        @Override
         protected Void doInBackground(String... params) {
 
-            System.out.println("params============== " + params[0] + " " + params[1]);
-            Call<String> createGroupApiCall = Api.getClient().createNewGroup(params[0], params[1], params[2]);
+            System.out.println("params ============== " + params[0] + " " + params[1]);
+            Call<String> createGroupApiCall = Api.getClient().createNewGroup(params[0], params[1], params[2], params[3]);
             try {
                 Response<String> response = createGroupApiCall.execute();
 
-                BufferedReader reader = null;
-                StringBuilder sb = new StringBuilder();
-                try {
-                    reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
-                    String line;
+                hideProgressDialog();
 
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line);
+                if (response != null && response.body() != null && response.isSuccessful()) {
+                    showSnackBar(response.body().toString(), findViewById(R.id.activity_create_group_main));
+                } else {
+                    if (response.code() != 302) {
+                        showSnackBar("Response Code : " + response.code() + " " + response.toString(), findViewById(R.id.activity_create_group_main));
+                        return null;
                     }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-
-                String finallyError = sb.toString();
-
-                if (finallyError.contains("Group created")) {
-                    showSnackBar(finallyError, findViewById(R.id.activity_create_group_main));
-                }
-
-                if (response.code() != 302) {
-                    showSnackBar("Response Code : " + response.code() + " " + response.toString(), findViewById(R.id.activity_create_group_main));
-                    return null;
-                }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -196,7 +197,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
             prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
 
-            List<GetGroupsModel> joinedGroups;
+
             String userId = prefsManager.getStringData("user_id");
             System.out.println("Sending Request for userId : " + userId);
             Call<List<GetGroupsModel>> callAuth = Api.getClient().GetGroupsByMemberId(userId);

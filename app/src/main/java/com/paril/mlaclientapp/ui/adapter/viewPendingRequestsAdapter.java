@@ -10,7 +10,21 @@ import android.widget.TextView;
 import com.paril.mlaclientapp.R;
 import com.paril.mlaclientapp.model.ViewPendingRequestsItem;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * Created by dell on 5/4/2020.
@@ -21,7 +35,8 @@ public class viewPendingRequestsAdapter extends RecyclerView.Adapter<viewPending
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
-        void onApproveBtnClick(int position);
+        void onApproveBtnClick(int position) throws Exception;
+
         void onDenyBtnClick(int position);
     }
 
@@ -44,10 +59,16 @@ public class viewPendingRequestsAdapter extends RecyclerView.Adapter<viewPending
             approveRequestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null) {
+                    if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onApproveBtnClick(position);
+                            try {
+                                listener.onApproveBtnClick(position);
+                            } catch (IOException | InvalidKeySpecException | IllegalBlockSizeException | NoSuchProviderException | KeyStoreException | BadPaddingException | NoSuchPaddingException | InvalidAlgorithmParameterException | UnrecoverableEntryException | InvalidKeyException | NoSuchAlgorithmException | CertificateException e) {
+                                e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -56,7 +77,7 @@ public class viewPendingRequestsAdapter extends RecyclerView.Adapter<viewPending
             denyRequestBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null) {
+                    if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             listener.onDenyBtnClick(position);
@@ -75,23 +96,24 @@ public class viewPendingRequestsAdapter extends RecyclerView.Adapter<viewPending
 
     @Override
     public requestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_group_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.add_request_item, parent, false);
         requestViewHolder gvh = new requestViewHolder(v, mListener);
         return gvh;
     }
 
     @Override
     public void onBindViewHolder(requestViewHolder holder, int position) {
-        ViewPendingRequestsItem currentGroup = mGroupList.get(position);
 
-//        holder.pendingRequestsTV.setText(currentGroup.getGroup_name());
-//        holder.groupOwnerFullName.setText(currentGroup.getFullname());
-//        holder.joinGroupBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                System.out.println(v.getId());
-//            }
-//        });
+        ViewPendingRequestsItem currentGroup = mGroupList.get(position);
+        holder.pendingRequestsTV.setText(
+                currentGroup.getRequester_fullname()
+                + " (Requesters ID: "
+                + currentGroup.getRequester_id()
+                + ") wants to join "
+                + currentGroup.getGroup_name()
+                + " (Group ID: "
+                + currentGroup.getGroup_id()
+                + ")");
 
     }
 

@@ -1,7 +1,9 @@
 package com.paril.mlaclientapp.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
@@ -11,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import com.paril.mlaclientapp.R;
 import com.paril.mlaclientapp.model.SNRegisterNewUser;
 import com.paril.mlaclientapp.model.SNUser;
+import com.paril.mlaclientapp.util.CommonUtils;
 import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.APIInterface;
 import com.paril.mlaclientapp.webservice.Api;
@@ -28,7 +32,10 @@ import com.paril.mlaclientapp.webservice.Api;
 import android.util.Base64;
 import android.widget.Toast;
 
+import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.jce.provider.symmetric.AES;
+import org.bouncycastle.util.encoders.Hex;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,8 +55,10 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.crypto.BadPaddingException;
@@ -68,6 +77,7 @@ import retrofit2.Retrofit;
 
 import static com.paril.mlaclientapp.ui.activity.KeyHelper.decryptData;
 import static com.paril.mlaclientapp.ui.activity.KeyHelper.getGroupKey;
+import static com.paril.mlaclientapp.ui.activity.KeyHelper.keyStore;
 
 public class MLASocialNetwork extends AppCompatActivity {
 
@@ -77,13 +87,11 @@ public class MLASocialNetwork extends AppCompatActivity {
     EditText registerScreenFullName;
     EditText registerScreenEmail;
     EditText registerScreenPassword;
+    private ProgressDialog progressDialog;
 
-    String publicKeyString, encryptedGroupKey;
+    String generatedGrpKeyString, registrationPubKeyStr, encryptedGrpKey;
 
-    String TAG = "StoreInKeyStore";
-
-    private static final String AndroidKeyStore = "AndroidKeyStore";
-    private static final String AES_MODE = "AES/GCM/NoPadding";
+    public int Base64EncDecScheme = Base64.NO_WRAP | Base64.NO_CLOSE | Base64.NO_PADDING | Base64.URL_SAFE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,23 +100,13 @@ public class MLASocialNetwork extends AppCompatActivity {
 
         try {
             KeyHelper.initKeyStore();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
             e.printStackTrace();
         }
 
-//        String a = "Hellow World!";
-//        System.out.println(Arrays.toString(a.getBytes()));
-//        System.out.println(Arrays.toString(new String(a.getBytes()).getBytes()));
-//        System.out.println(Arrays.toString(Base64.decode(a.getBytes(), Base64.NO_PADDING)));
+        System.out.println("Providers: " + Arrays.toString(Security.getProviders()));
 
         registerNewUserBtn = (Button) findViewById(R.id.register_screen_register_btn);
-
         registerScreenFullName = (EditText) findViewById(R.id.register_screen_fullname);
         registerScreenEmail = (EditText) findViewById(R.id.register_screen_email);
         registerScreenPassword = (EditText) findViewById(R.id.register_screen_password);
@@ -135,7 +133,7 @@ public class MLASocialNetwork extends AppCompatActivity {
                 try {
                     createUser();
                 } catch (KeyStoreException | CertificateException | IOException | NoSuchProviderException | InvalidAlgorithmParameterException | UnrecoverableEntryException e) {
-                    Log.e(TAG, Log.getStackTraceString(e));
+                    Log.e("createUser() ", Log.getStackTraceString(e));
                 }
 
             }
@@ -162,11 +160,13 @@ public class MLASocialNetwork extends AppCompatActivity {
         snackbar.show();
     }
 
+
     private void createUser() throws KeyStoreException, IOException, CertificateException, NoSuchProviderException, InvalidAlgorithmParameterException, UnrecoverableEntryException {
 
         String fullname = registerScreenFullName.getText().toString();
         String email = registerScreenEmail.getText().toString();
         String password = registerScreenPassword.getText().toString();
+        String signedData = "";
 
         try {
 
@@ -174,88 +174,67 @@ public class MLASocialNetwork extends AppCompatActivity {
             SNPrefsManager prefsManager = new SNPrefsManager(getApplicationContext(), email);
             prefsManager.saveData("key_alias", email);
             String alias = prefsManager.getStringData("key_alias");
-
             Log.d("Getting alias from prfs", alias);
-            KeyHelper.NewUserKeys newKeys = getGroupKey(getApplicationContext(), alias);
-            publicKeyString = newKeys.getPubKey();
-            encryptedGroupKey = newKeys.getCipheredGroupKey();
 
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (UnrecoverableEntryException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+//            KeyHelper2.initKeyStore();
+
+            // Encryption Starts ============================
+
+            // 1) generate keypair
+            KeyPair registrationKeyPair = KeyHelper2.genKeyPairAndGetPubKey2(alias);
+            PublicKey registrationPubKey = registrationKeyPair.getPublic();
+            PrivateKey registrationPrivKey = registrationKeyPair.getPrivate();
+
+            // serialize private key
+            byte[] privKeyStr = KeyHelper2.serializeKey(registrationPrivKey);
+
+            // 2) save private key in sharedPrefs
+            prefsManager.saveData("privateKey",
+                    KeyHelper2.encodeB64(privKeyStr));
+
+            // 3) serialize public key
+            byte[] registrationPubKeyBytes = KeyHelper2.serializeKey(registrationPubKey);
+
+            // 4) generate a string for grp key
+            byte[] generatedGrpKeyBytes = KeyHelper2.generateRandomBytes();
+
+            // 5) encrypt group key
+            byte[] encryptedGrpKeyBytes = KeyHelper2.encryptGroupKeyUsingPubKey(registrationPubKey, generatedGrpKeyBytes);
+
+            // 6) Sign encrypted group key
+            signedData = KeyHelper2.signData(KeyHelper2.encodeB64(encryptedGrpKeyBytes), registrationPrivKey);
+
+            // 7) B64 encode grp key and pub key bytes to be sent
+            encryptedGrpKey = KeyHelper2.encodeB64(encryptedGrpKeyBytes);
+            registrationPubKeyStr = KeyHelper2.encodeB64(registrationPubKeyBytes);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        System.out.println("encrypted public key .............. " + encryptedGroupKey);
+        Log.d("encryptedGrpKey:", encryptedGrpKey);
 
-        Call<SNRegisterNewUser> registrationCall = Api.getClient().registerNewUser(
-                email,
-                password,
-                publicKeyString,
-                fullname,
-                encryptedGroupKey
-        );
+        if (TextUtils.isEmpty(password) || TextUtils.isEmpty(fullname) || TextUtils.isEmpty(email)) {
 
-        registrationCall.enqueue(new Callback<SNRegisterNewUser>() {
-            @Override
-            public void onResponse(Call<SNRegisterNewUser> call, Response<SNRegisterNewUser> response) {
+            showSnackBar(getString(R.string.enter_all_fields), findViewById(R.id.activity_sn__login));
 
-                BufferedReader reader = null;
-                StringBuilder sb = new StringBuilder();
-                try {
-                    reader = new BufferedReader(new InputStreamReader(response.errorBody().byteStream()));
-                    String line;
+        } else {
+            if (CommonUtils.checkInternetConnection(MLASocialNetwork.this)) {
+                RegistrationAPI registration = new RegistrationAPI(getApplicationContext());
 
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                String finallyError = sb.toString();
-
-                if (finallyError.contains("Already Exists")) {
-                    showSnackBar("User Already Exists!", findViewById(R.id.activity_social_main));
-                }
-
-                if (response.code() != 302) {
-                    showSnackBar("Response Code : " + response.code() + " " + response.toString(), findViewById(R.id.activity_social_main));
-                    return;
-                }
-
-                showSnackBar("User Registered Successfully !", findViewById(R.id.activity_social_main));
-
+                // 7) Send Data
+                registration.execute(
+                        email,
+                        password,
+                        registrationPubKeyStr,
+                        fullname,
+                        encryptedGrpKey,
+                        signedData
+                );
+            } else {
+                showSnackBar(getString(R.string.check_connection), findViewById(R.id.activity_sn__login));
             }
-
-            @Override
-            public void onFailure(Call<SNRegisterNewUser> call, Throwable t) {
-                showSnackBar(t.getMessage(), findViewById(R.id.activity_social_main));
-            }
-        });
-
-
+        }
     }
 
     public class ModelError {
@@ -267,6 +246,59 @@ public class MLASocialNetwork extends AppCompatActivity {
 
         public void setMessage(String Message) {
             this.Message = Message;
+        }
+    }
+
+    public class RegistrationAPI extends AsyncTask<String, Void, Void> {
+
+        Context appContext;
+
+        public RegistrationAPI(Context context) {
+            appContext = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            showProgressDialog("Registering ...");
+        }
+
+        @Override
+        protected Void doInBackground(String... newUserParams) {
+
+            hideProgressDialog();
+
+            Call<String> registerCallAuth = Api.getClient().registerNewUser(
+                    newUserParams[0],
+                    newUserParams[1],
+                    newUserParams[2],
+                    newUserParams[3],
+                    newUserParams[4],
+                    newUserParams[5]
+            );
+            try {
+                Response<String> respAuth = registerCallAuth.execute();
+                if (respAuth != null && respAuth.isSuccessful() & respAuth.body() != null) {
+                    String responseMsg = respAuth.body().toString();
+                    showSnackBar(responseMsg, findViewById(R.id.activity_social_main));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public void showProgressDialog(String message) {
+        if (progressDialog == null || !progressDialog.isShowing()) {
+            progressDialog = ProgressDialog.show(this, getString(R.string.app_name), message, true, false);
+        }
+    }
+
+    public void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+
         }
     }
 

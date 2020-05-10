@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:2:1-101:12
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:2:1-104:12
 	package
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from C:\mla\app\src\main\AndroidManifest.xml
@@ -52,22 +52,12 @@ ADDED from C:\mla\app\src\main\AndroidManifest.xml:16:5-73
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:16:22-70
 application
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:18:5-99:19
-MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\dell\.android\build-cache\46caedf236da2719e898de7cdb44c25603ab091d\output\AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:design:24.2.1] C:\Users\dell\.android\build-cache\d205e3e6fa4e31f41c18fa74da049c55ae9751d7\output\AndroidManifest.xml:22:5-20
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:18:5-102:19
 MERGED from [com.github.reinaldoarrosi:maskededittext:1.1.0] C:\Users\dell\.android\build-cache\132fb3334c7aa9ae44f02748fcee7b153cbc5502\output\AndroidManifest.xml:11:5-53
 MERGED from [mla:sinch-android-rtc-3.11.1:unspecified] C:\Users\dell\.android\build-cache\cc2bc7b74cb7898fb6a23c5110a2f1327edca47a\output\AndroidManifest.xml:11:5-19:19
 MERGED from [com.github.pchmn:MaterialChipsInput:1.0.8] C:\Users\dell\.android\build-cache\096d2800ac4d96d2fdd6810b8f445a91de7452e2\output\AndroidManifest.xml:11:5-15:19
-MERGED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-v4:25.3.0] C:\Users\dell\.android\build-cache\3ce13213efd70b49f11693fa98907b3c7ae75896\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-fragment:25.3.0] C:\Users\dell\.android\build-cache\9b9da888a32414b50a6bc7794edec3112ebd4b74\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-media-compat:25.3.0] C:\Users\dell\.android\build-cache\6f74b3e0cbce54b608f7e433544716750ec24135\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-utils:25.3.0] C:\Users\dell\.android\build-cache\c372fd13bd205ba651d2a15f4950d82ee4290459\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:animated-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\4265e93add975120cc1b4677d74ea20a642bbd95\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\c7cd7db626dca6d80d3677e4133082e8962d2cae\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-core-ui:25.3.0] C:\Users\dell\.android\build-cache\f379ac7d8c2a9f78b3f02c80eeaad6772e85cd2b\output\AndroidManifest.xml:29:5-20
 MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\dell\.android\build-cache\9b7f44a37a6cab34a5d3539fa906946173ff80a5\output\AndroidManifest.xml:9:5-20
-MERGED from [com.android.support:support-compat:25.3.0] C:\Users\dell\.android\build-cache\d310be4522d46be59a162d2bfd3336c3f242ae64\output\AndroidManifest.xml:29:5-20
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\dell\.android\build-cache\c051498bcc1b347a2dfc835d0212fb61161af0e7\output\AndroidManifest.xml:24:5-28:19
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\dell\.android\build-cache\f776277f9149f3e46fc60a118ca442570854ce9e\output\AndroidManifest.xml:9:5-20
 	android:label
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:21:9-41
@@ -182,85 +172,87 @@ ADDED from C:\mla\app\src\main\AndroidManifest.xml:74:9-69
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:74:19-66
 activity#com.paril.mlaclientapp.ui.activity.MLASocialNetwork
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:76:9-85:20
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:76:9-81:20
 	android:label
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:78:13-69
 	android:theme
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:79:13-56
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:77:13-57
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:80:13-84:29
-action#android.intent.action.MAIN
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:81:17-69
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:81:25-66
-category#android.intent.category.LAUNCHER
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:83:17-77
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:83:27-74
 activity#com.paril.mlaclientapp.ui.activity.SN_Login
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:86:9-88:59
-	android:theme
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:88:13-56
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:87:13-49
-activity#com.paril.mlaclientapp.ui.activity.SNHomeActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:89:9-92:59
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:82:9-91:20
 	android:label
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:91:13-58
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:85:13-69
 	android:theme
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:92:13-56
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:84:13-56
 	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:90:13-55
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:83:13-49
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:86:13-90:29
+action#android.intent.action.MAIN
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:87:17-69
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:87:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:89:17-77
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:89:27-74
+activity#com.paril.mlaclientapp.ui.activity.SNHomeActivity
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:92:9-95:59
+	android:label
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:94:13-58
+	android:theme
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:95:13-56
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:93:13-55
 activity#com.paril.mlaclientapp.ui.activity.WritePostActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:93:9-67
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:9-67
 	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:93:19-64
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:19-64
 activity#com.paril.mlaclientapp.ui.activity.ViewPostsActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:94:9-67
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:9-67
 	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:94:19-64
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:19-64
 activity#com.paril.mlaclientapp.ui.activity.CreateGroupActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:95:9-69
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:95:19-66
-activity#com.paril.mlaclientapp.ui.activity.ViewGroupsActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:9-68
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:96:19-65
-activity#com.paril.mlaclientapp.ui.activity.AddFriendsActivity
-ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:9-68
-	android:name
-		ADDED from C:\mla\app\src\main\AndroidManifest.xml:97:19-65
-activity#com.paril.mlaclientapp.ui.activity.AddRequestsActivity
 ADDED from C:\mla\app\src\main\AndroidManifest.xml:98:9-69
 	android:name
 		ADDED from C:\mla\app\src\main\AndroidManifest.xml:98:19-66
+activity#com.paril.mlaclientapp.ui.activity.ViewGroupsActivity
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:99:9-68
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:99:19-65
+activity#com.paril.mlaclientapp.ui.activity.AddFriendsActivity
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:100:9-68
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:100:19-65
+activity#com.paril.mlaclientapp.ui.activity.AddRequestsActivity
+ADDED from C:\mla\app\src\main\AndroidManifest.xml:101:9-69
+	android:name
+		ADDED from C:\mla\app\src\main\AndroidManifest.xml:101:19-66
 uses-sdk
 INJECTED from C:\mla\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:cardview-v7:24.0.0] C:\Users\dell\.android\build-cache\46caedf236da2719e898de7cdb44c25603ab091d\output\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:design:24.2.1] C:\Users\dell\.android\build-cache\d205e3e6fa4e31f41c18fa74da049c55ae9751d7\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:27.0.1] C:\Users\dell\.android\build-cache\bdbe6d3db4d2187f679c641881d376b1212df244\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.0.1] C:\Users\dell\.android\build-cache\0fecdc575489fe4a837b39eb1a9ef3674f020235\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.0.1] C:\Users\dell\.android\build-cache\8ce858ae546eb902363d84268485c065ffc042fc\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.0.1] C:\Users\dell\.android\build-cache\be0c4c01201858c35303ca6709f528a5f5ee32df\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.0.1] C:\Users\dell\.android\build-cache\cf76ea17e6ec33de107e239bd367155157ebe88e\output\AndroidManifest.xml:20:5-44
 MERGED from [com.daimajia.swipelayout:library:1.2.0] C:\Users\dell\.android\build-cache\cadbb35cf6b69f0c149bbd2ff437a48825b1dad0\output\AndroidManifest.xml:6:5-8:41
 MERGED from [com.github.reinaldoarrosi:maskededittext:1.1.0] C:\Users\dell\.android\build-cache\132fb3334c7aa9ae44f02748fcee7b153cbc5502\output\AndroidManifest.xml:7:5-9:41
 MERGED from [mla:sinch-android-rtc-3.11.1:unspecified] C:\Users\dell\.android\build-cache\cc2bc7b74cb7898fb6a23c5110a2f1327edca47a\output\AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.pchmn:MaterialChipsInput:1.0.8] C:\Users\dell\.android\build-cache\096d2800ac4d96d2fdd6810b8f445a91de7452e2\output\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:support-v4:25.3.0] C:\Users\dell\.android\build-cache\3ce13213efd70b49f11693fa98907b3c7ae75896\output\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-fragment:25.3.0] C:\Users\dell\.android\build-cache\9b9da888a32414b50a6bc7794edec3112ebd4b74\output\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-media-compat:25.3.0] C:\Users\dell\.android\build-cache\6f74b3e0cbce54b608f7e433544716750ec24135\output\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-core-utils:25.3.0] C:\Users\dell\.android\build-cache\c372fd13bd205ba651d2a15f4950d82ee4290459\output\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:animated-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\4265e93add975120cc1b4677d74ea20a642bbd95\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\c7cd7db626dca6d80d3677e4133082e8962d2cae\output\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:recyclerview-v7:25.3.0] C:\Users\dell\.android\build-cache\52e1001e7cc8bb9dcec3d833e8de8136fc55536d\output\AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-core-ui:25.3.0] C:\Users\dell\.android\build-cache\f379ac7d8c2a9f78b3f02c80eeaad6772e85cd2b\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:appcompat-v7:27.0.1] C:\Users\dell\.android\build-cache\8c2e31b835f37158acc6496de28ce653c5522b41\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.0.1] C:\Users\dell\.android\build-cache\8d1db2975f9e8b1340d9fc482942c0b6337e30a4\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.0.1] C:\Users\dell\.android\build-cache\e24efdcbcbc3129d056bbae24e458de791dbf5b3\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.0.1] C:\Users\dell\.android\build-cache\669eedc16728ec3771fba8f45834f91dee9711fd\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.0.1] C:\Users\dell\.android\build-cache\5d6ff3cfc28d0a51ba4c3c395cd349d1e63c97bb\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.0.1] C:\Users\dell\.android\build-cache\a551024d091fc6adaa9e7e9c4a452c3f4f4124be\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.0.1] C:\Users\dell\.android\build-cache\6ccbca156530c911c68c6708ebf8599c9f6252df\output\AndroidManifest.xml:20:5-44
 MERGED from [com.beloo.widget:ChipsLayoutManager:0.3.7] C:\Users\dell\.android\build-cache\6ba2787325a1a7d548886b59f618fe44d96a266d\output\AndroidManifest.xml:8:5-10:41
 MERGED from [de.hdodenhof:circleimageview:2.1.0] C:\Users\dell\.android\build-cache\9b7f44a37a6cab34a5d3539fa906946173ff80a5\output\AndroidManifest.xml:5:5-7:41
 MERGED from [com.jakewharton:butterknife:8.5.1] C:\Users\dell\.android\build-cache\56724c8174e247fcdc12facaedfd075bf0a7162e\output\AndroidManifest.xml:5:5-43
-MERGED from [com.android.support:support-compat:25.3.0] C:\Users\dell\.android\build-cache\d310be4522d46be59a162d2bfd3336c3f242ae64\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:27.0.1] C:\Users\dell\.android\build-cache\fed487272baf79a2c7154c0ebbc27e19f84927c4\output\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\dell\.android\build-cache\c051498bcc1b347a2dfc835d0212fb61161af0e7\output\AndroidManifest.xml:20:5-22:41
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\dell\.android\build-cache\f776277f9149f3e46fc60a118ca442570854ce9e\output\AndroidManifest.xml:5:5-7:41
-	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
 		INJECTED from C:\mla\app\src\main\AndroidManifest.xml
 		INJECTED from C:\mla\app\src\main\AndroidManifest.xml
@@ -279,18 +271,9 @@ action#com.google.android.gms.iid.InstanceID
 ADDED from [mla:sinch-android-rtc-3.11.1:unspecified] C:\Users\dell\.android\build-cache\cc2bc7b74cb7898fb6a23c5110a2f1327edca47a\output\AndroidManifest.xml:16:17-80
 	android:name
 		ADDED from [mla:sinch-android-rtc-3.11.1:unspecified] C:\Users\dell\.android\build-cache\cc2bc7b74cb7898fb6a23c5110a2f1327edca47a\output\AndroidManifest.xml:16:25-77
-meta-data#android.support.VERSION
-ADDED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-v4:25.3.0] C:\Users\dell\.android\build-cache\3ce13213efd70b49f11693fa98907b3c7ae75896\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-fragment:25.3.0] C:\Users\dell\.android\build-cache\9b9da888a32414b50a6bc7794edec3112ebd4b74\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-media-compat:25.3.0] C:\Users\dell\.android\build-cache\6f74b3e0cbce54b608f7e433544716750ec24135\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-core-utils:25.3.0] C:\Users\dell\.android\build-cache\c372fd13bd205ba651d2a15f4950d82ee4290459\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:animated-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\4265e93add975120cc1b4677d74ea20a642bbd95\output\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:support-vector-drawable:25.3.0] C:\Users\dell\.android\build-cache\c7cd7db626dca6d80d3677e4133082e8962d2cae\output\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:recyclerview-v7:25.3.0] C:\Users\dell\.android\build-cache\52e1001e7cc8bb9dcec3d833e8de8136fc55536d\output\AndroidManifest.xml:22:5-24:34
-MERGED from [com.android.support:support-core-ui:25.3.0] C:\Users\dell\.android\build-cache\f379ac7d8c2a9f78b3f02c80eeaad6772e85cd2b\output\AndroidManifest.xml:25:5-27:34
-MERGED from [com.android.support:support-compat:25.3.0] C:\Users\dell\.android\build-cache\d310be4522d46be59a162d2bfd3336c3f242ae64\output\AndroidManifest.xml:25:5-27:34
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\dell\.android\build-cache\c051498bcc1b347a2dfc835d0212fb61161af0e7\output\AndroidManifest.xml:25:9-27:47
 	android:value
-		ADDED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:27:9-31
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\dell\.android\build-cache\c051498bcc1b347a2dfc835d0212fb61161af0e7\output\AndroidManifest.xml:27:13-44
 	android:name
-		ADDED from [com.android.support:appcompat-v7:25.3.0] C:\Users\dell\.android\build-cache\ccd379577ca89129cf774700edc9600e0cc2f76c\output\AndroidManifest.xml:26:9-47
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\dell\.android\build-cache\c051498bcc1b347a2dfc835d0212fb61161af0e7\output\AndroidManifest.xml:26:13-58

@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/view_group_join_btn"
+                android:clickable="false"
                 android:text="Join group"/>
         </LinearLayout>
 

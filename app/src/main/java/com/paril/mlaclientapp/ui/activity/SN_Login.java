@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +50,27 @@ public class SN_Login extends AppCompatActivity {
         passwordTxt = (EditText) findViewById(R.id.login_screen_password);
 
         login = new SNUserLogin();
+
+        try {
+            byte[] testBytes = KeyHelper2.generateRandomBytes();
+            System.out.println("testBytes length " + testBytes.length);
+            System.out.println("encoded " + KeyHelper2.encodeB64(testBytes));
+            System.out.println("decoded" + Arrays.toString(
+                    KeyHelper2.decodeB64(
+                            KeyHelper2.encodeB64(testBytes))));
+            byte[] bytesToBeEncrypted = "ABCD1234WXYZ9876".getBytes("UTF-8");
+            byte[] encryptedMsg = AESKeyHelper.encrypt(bytesToBeEncrypted, testBytes);
+            byte[] decryptedBytes = AESKeyHelper.decrypt(encryptedMsg,
+                   KeyHelper2.decodeB64(KeyHelper2.encodeB64(testBytes)));
+
+            System.out.println(Arrays.toString(decryptedBytes));
+            System.out.println("decrBytes length " + decryptedBytes.length);
+
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
 
         // open register activity
         openRegisterScreen = (Button) findViewById(R.id.login_screen_register_btn);
@@ -87,7 +111,7 @@ public class SN_Login extends AppCompatActivity {
     class SNLoginAPI extends AsyncTask<String, Void, SNUserLogin> {
         Context appContext;
 
-        public SNLoginAPI (Context context) {
+        public SNLoginAPI(Context context) {
             appContext = context;
         }
 
@@ -101,8 +125,6 @@ public class SN_Login extends AppCompatActivity {
             hideProgressDialog();
             login = loginArg;
 
-            System.out.println(login.toString());
-            System.out.println("login.username========="+ login.username);
             prefsManager = new SNPrefsManager(getApplicationContext(), login.username);
 
             if (login.user_id != null) {
@@ -110,13 +132,14 @@ public class SN_Login extends AppCompatActivity {
                 activity.setClass(SN_Login.this, SNHomeActivity.class);
                 activity.putExtra("user_id", login.user_id);
                 activity.putExtra("fullname", login.fullname);
-                activity.putExtra("publicKey", login.publicKey);
-                activity.putExtra("username", login.username);
+//                activity.putExtra("publicKey", login.publicKey);
+                activity.putExtra("username", login.username); // needed for instantiating prefsManager
 
                 savingUserInformation();
                 activity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activity);
                 finish();
+
             } else {
                 showSnackBar("User Name/Password is incorrect. Please enter correct credentials.", findViewById(R.id.activity_sn__login));
             }
@@ -125,7 +148,8 @@ public class SN_Login extends AppCompatActivity {
         @Override
         protected SNUserLogin doInBackground(String... params) {
             SNUserLogin login = new SNUserLogin();
-            System.out.println("params============== "+ params[0] + " " + params[1]);
+            Log.i("Login Parameters", params[0] + " " + params[1]);
+
             Call<List<SNUserLogin>> loginCallAuth = Api.getClient().loginAuth(params[0], params[1]);
             try {
                 Response<List<SNUserLogin>> respAuth = loginCallAuth.execute();
@@ -153,7 +177,6 @@ public class SN_Login extends AppCompatActivity {
     public void showProgressDialog(String message) {
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = ProgressDialog.show(this, getString(R.string.app_name), message, true, false);
-
         }
     }
 
@@ -171,7 +194,7 @@ public class SN_Login extends AppCompatActivity {
         prefsManager.saveData("username", login.username);
         prefsManager.saveData("key_alias", login.username);
 
-        System.out.println("prefsManager ...........: " + prefsManager.getStringData("userId"));
+//        System.out.println("prefsManager ...........: " + prefsManager.getStringData("userId"));
 //        prefsManager.saveData("userType", register.userType);
     }
 }

@@ -5,7 +5,7 @@ package com.paril.mlaclientapp.model;
  */
 
 public class GetPostsModel {
-    public String authod_id;
+    public String author_id;
     public String fullname;
     public String group_id;
     public String group_name;
@@ -13,4 +13,6 @@ public class GetPostsModel {
     public String post_data;
     public String post_key;
     public String timestamp;
+    public String signature;
+    public String ownr_public_key;
 }

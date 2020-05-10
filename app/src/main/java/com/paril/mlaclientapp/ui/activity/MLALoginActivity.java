@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.paril.mlaclientapp.util.PrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -78,15 +81,6 @@ public class MLALoginActivity extends BaseActivity {
 
         getSupportActionBar().setTitle("Sign In");
 
-        // New intent for MLASocial Activity
-//        openSocialNetworkBtn = (Button) findViewById(R.id.openSocialBtn);
-//        openSocialNetworkBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent openSocialIntent = new Intent(MLALoginActivity.this, MLASocialNetwork.class);
-//                startActivity(openSocialIntent);
-//            }
-//        });
 
         prefsManager=new PrefsManager(this);
         register = new MLARegisterUsers();
@@ -128,7 +122,6 @@ public class MLALoginActivity extends BaseActivity {
         });
 
     }
-
 
     class MLALoginAPI extends AsyncTask<String, Void, MLARegisterUsers> {
         Context appContext;

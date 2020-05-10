@@ -43,7 +43,7 @@
             android:ems="10"
             android:hint="@string/sn_register_enter_name"
             android:inputType="textPersonName"
-            android:text="Gaurav" />
+            android:text="User " />
 
         <EditText
             android:id="@+id/register_screen_email"
@@ -53,7 +53,7 @@
             android:ems="10"
             android:hint="@string/sn_register_enter_email"
             android:inputType="textEmailAddress"
-            android:text="gaurav@bora.com" />
+            android:text="user@email.com" />
 
         <EditText
             android:id="@+id/register_screen_password"
@@ -63,7 +63,7 @@
             android:ems="10"
             android:hint="@string/sn_register_enter_password"
             android:inputType="textPassword"
-            android:text="passtest" />
+            android:text="password" />
 
         <Button
             android:id="@+id/register_screen_register_btn"

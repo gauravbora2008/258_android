@@ -5,27 +5,52 @@ package com.paril.mlaclientapp.model;
  */
 
 public class ViewPendingRequestsItem {
-    private String user_id;
-    private String public_key;
+    private String requester_id;
+    private String requester_fullname;
+    private String requesters_pub_key;
     private String group_id;
     private String group_key;
     private String group_owner_id;
     private String group_name;
+    private String signature;
+    private String join_request_hash;
+    private String group_owners_pub_key;
 
-    public String getUser_id() {
-        return user_id;
+    public ViewPendingRequestsItem(String requester_id, String requester_fullname, String requesters_pub_key, String group_id, String group_key, String group_owner_id, String group_name, String signature, String join_request_hash, String group_owners_pub_key) {
+        this.requester_id = requester_id;
+        this.requester_fullname = requester_fullname;
+        this.requesters_pub_key = requesters_pub_key;
+        this.group_id = group_id;
+        this.group_key = group_key;
+        this.group_owner_id = group_owner_id;
+        this.group_name = group_name;
+        this.signature = signature;
+        this.join_request_hash = join_request_hash;
+        this.group_owners_pub_key = group_owners_pub_key;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getRequester_id() {
+        return requester_id;
     }
 
-    public String getPublic_key() {
-        return public_key;
+    public void setRequester_id(String requester_id) {
+        this.requester_id = requester_id;
     }
 
-    public void setPublic_key(String public_key) {
-        this.public_key = public_key;
+    public String getRequester_fullname() {
+        return requester_fullname;
+    }
+
+    public void setRequester_fullname(String requester_fullname) {
+        this.requester_fullname = requester_fullname;
+    }
+
+    public String getRequesters_pub_key() {
+        return requesters_pub_key;
+    }
+
+    public void setRequesters_pub_key(String requesters_pub_key) {
+        this.requesters_pub_key = requesters_pub_key;
     }
 
     public String getGroup_id() {
@@ -60,13 +85,27 @@ public class ViewPendingRequestsItem {
         this.group_name = group_name;
     }
 
-    public ViewPendingRequestsItem(String user_id, String public_key, String group_id, String group_key, String group_owner_id, String group_name) {
+    public String getSignature() {
+        return signature;
+    }
 
-        this.user_id = user_id;
-        this.public_key = public_key;
-        this.group_id = group_id;
-        this.group_key = group_key;
-        this.group_owner_id = group_owner_id;
-        this.group_name = group_name;
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getJoin_request_hash() {
+        return join_request_hash;
+    }
+
+    public void setJoin_request_hash(String join_request_hash) {
+        this.join_request_hash = join_request_hash;
+    }
+
+    public String getGroup_owners_pub_key() {
+        return group_owners_pub_key;
+    }
+
+    public void setGroup_owners_pub_key(String group_owners_pub_key) {
+        this.group_owners_pub_key = group_owners_pub_key;
     }
 }

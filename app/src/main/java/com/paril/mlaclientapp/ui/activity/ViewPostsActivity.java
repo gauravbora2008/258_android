@@ -19,13 +19,18 @@ import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,24 +60,6 @@ public class ViewPostsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_posts);
         setToolbarTitle("View Posts");
 
-//        ArrayList<ViewPostItem> postsList = new ArrayList<>();
-//        postsList.add(new ViewPostItem("Author1",
-//                "Lorem ipsum dolor sit amet consectetus aor enrique iglesius",
-//                "Group1"));
-//        postsList.add(new ViewPostItem("Author2",
-//                "Lorem ipsum dolor sit amet consectetus aor enrique iglesius consectetus aor enrique iglesius consectetus aor enrique iglesius",
-//                "Group2"));
-//        postsList.add(new ViewPostItem("Author3",
-//                "Lorem ipsum dolor sit amet consectetus aor enrique iglesius",
-//                "Group3"));
-//        postsList.add(new ViewPostItem("Author4",
-//                "Lorem ipsum dolor sit amet consectetus aor enrique iglesius very long post consectetus aor enrique iglesius consectetus aor enrique iglesius consectetus aor enrique iglesius consectetus aor enrique iglesius consectetus aor enrique iglesius consectetus aor enrique iglesiusconsectetus aor enrique iglesius",
-//                "Group4"));
-//
-//        postsRecyclerView = (RecyclerView) findViewById(R.id.view_posts_recycler_view);
-//        postsRecyclerView.setHasFixedSize(true);
-//        postsRVLayoutManager = new LinearLayoutManager(this);
-//        postsRVAdapter = new viewPostsAdapter(postsList);
         showProgressDialog("Fetching Posts...");
 
         currentIntent = getIntent();
@@ -83,6 +70,15 @@ public class ViewPostsActivity extends AppCompatActivity {
 
         GetPostsAPI getPostsCall = new GetPostsAPI(getApplicationContext());
         getPostsCall.execute(user_id);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
     }
 
     class GetPostsAPI extends AsyncTask<String, Void, GetPostsModel> {
@@ -105,30 +101,68 @@ public class ViewPostsActivity extends AppCompatActivity {
 
                     List<GetPostsModel> responsePosts = response.body();
 
-                    String alias = prefsManager.getStringData("key_alias");
+                    Boolean grpKeyVerify;
 
+                    // verify group key
                     for (int i = 0; i < responsePosts.size(); i++) {
 
-                        String decryptedGrpKey = KeyHelper.decryptData(responsePosts.get(i).group_key, getApplicationContext(), alias); // key is on index 1
-                        Log.d("        decryptedGrpKey", decryptedGrpKey);
+                        PublicKey sendersPubKey = (PublicKey) KeyHelper2.deserializeKey(
+                                KeyHelper2.decodeB64(
+                                        responsePosts.get(i).ownr_public_key
+                                )
+                        );
 
-                        // decrypt postKey using groupKey
-                        String decryptedPostKey = AESKeyHelper.decrypt(responsePosts.get(i).post_key, decryptedGrpKey);
-
-                        // decrypt post_data using decrypted_post_key
-                        String decryptedPostData = AESKeyHelper.decrypt(responsePosts.get(i).post_data, decryptedPostKey);
-
-                        Log.d("      decryptedPostData", decryptedPostData);
-
-                        postsList.add(new ViewPostItem(
-                                responsePosts.get(i).fullname,
-                                decryptedPostData,
-                                responsePosts.get(i).group_name,
-                                responsePosts.get(i).post_key,
+                        if (KeyHelper2.verifyData(
+                                responsePosts.get(i).signature,
                                 responsePosts.get(i).group_key,
-                                responsePosts.get(i).timestamp
+                                KeyHelper2.encodeB64(
+                                        KeyHelper2.serializeKey(sendersPubKey)
+                                )
+                        )) grpKeyVerify = true;
+                        else grpKeyVerify = false;
 
-                        ));
+                        if (!grpKeyVerify) {
+                            Log.d("Group Key Verify failed", grpKeyVerify.toString());
+                        } else {
+
+                            Log.d("Grp Key", "VERIFIED!");
+
+                            String privateKeyStr = prefsManager.getStringData("privateKey");
+
+                            PrivateKey privateKey_ = (PrivateKey) KeyHelper2.deserializeKey(
+                                    KeyHelper2.decodeB64(privateKeyStr)
+                            );
+
+                            System.out.println("Decrypting Grp Key");
+                            byte[] decryptedGrpKey = KeyHelper2.decryptGroupKey(
+                                    KeyHelper2.decodeB64(responsePosts.get(i).group_key),
+                                    privateKey_);
+
+                            System.out.println("Tag 1");
+
+                            // 1) decrypt postKey using groupKey
+                            byte[] decryptedPostKey = AESKeyHelper.decrypt(
+                                    KeyHelper2.decodeB64(responsePosts.get(i).post_key),
+                                    decryptedGrpKey);
+
+                            System.out.println("Tag 2");
+
+                            // 2) decrypt post_data using decrypted_post_key
+                            byte[] decryptedPostData = AESKeyHelper.decrypt(
+                                    KeyHelper2.decodeB64(responsePosts.get(i).post_data),
+                                    decryptedPostKey);
+
+                            postsList.add(new ViewPostItem(
+
+                                    responsePosts.get(i).fullname,
+                                    new String(decryptedPostData, StandardCharsets.UTF_8),
+                                    responsePosts.get(i).group_name,
+                                    responsePosts.get(i).post_key,
+                                    responsePosts.get(i).group_key,
+                                    responsePosts.get(i).timestamp
+
+                            ));
+                        }
                     }
 
                     runOnUiThread(new Runnable() {
@@ -149,40 +183,26 @@ public class ViewPostsActivity extends AppCompatActivity {
                     hideProgressDialog();
                     showSnackBar("Some error occurred!", findViewById(R.id.view_posts_main_activity));
                 }
-            } catch (IOException e) {
+            } catch (IOException | SignatureException | InvalidKeySpecException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException | CertificateException | NoSuchProviderException | NoSuchAlgorithmException | KeyStoreException | UnrecoverableEntryException | InvalidKeyException e) {
+                System.out.println(e.getCause());
+                System.out.println(e.getLocalizedMessage());
+                System.out.println(e.getMessage());
+                System.out.println(e.toString());
                 e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
-            } catch (UnrecoverableEntryException e) {
-                e.printStackTrace();
-            } catch (KeyStoreException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (NoSuchProviderException e) {
-                e.printStackTrace();
-            } catch (CertificateException e) {
-                e.printStackTrace();
-            } catch (InvalidAlgorithmParameterException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
-                e.printStackTrace();
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (NoSuchPaddingException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
             return null;
         }
     }
 
-    public void showProgressDialog(String message) {
+    private void showProgressDialog(String message) {
         if (progressDialog == null || !progressDialog.isShowing()) {
             progressDialog = ProgressDialog.show(ViewPostsActivity.this, getString(R.string.app_name), message, true, false);
         }
     }
 
-    public void hideProgressDialog() {
+    private void hideProgressDialog() {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }

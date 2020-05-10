@@ -10,12 +10,14 @@ public class SNRegisterNewUser {
     private String publicKeyStr;
     private String fullname;
     private String encryptedGroupKey;
+    private String signedData;
 
-    public SNRegisterNewUser(String username, String password, String publicKeyStr, String fullname, String encryptedGroupKey) {
+    public SNRegisterNewUser(String username, String password, String publicKeyStr, String fullname, String encryptedGroupKey, String signedData) {
         this.username = username;
         this.password = password;
         this.publicKeyStr = publicKeyStr;
         this.fullname = fullname;
         this.encryptedGroupKey = encryptedGroupKey;
+        this.signedData = signedData;
     }
 }

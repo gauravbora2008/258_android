@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.paril.mlaclientapp.util.PrefsManager;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
@@ -33,7 +34,9 @@ import java.security.Security;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.UnrecoverableEntryException;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.MGF1ParameterSpec;
@@ -41,17 +44,17 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.ShortBufferException;
-import javax.crypto.spec.OAEPParameterSpec;
-import javax.crypto.spec.PSource;
-import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
+import javax.security.cert.X509Certificate;
+
 
 public class KeyHelper {
 
@@ -62,46 +65,8 @@ public class KeyHelper {
         keyStore.load(null);
     }
 
-    // generates a random grp/post key string
-    // encrypts it with public key from the keystore
-    // returns the encrypted groupkeystring
-    // assumes there is a public key stored in the keystore
-    public static String createEncryptedKey(String publicKeyString) throws UnrecoverableEntryException, NoSuchAlgorithmException, KeyStoreException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException, CertificateException {
-
-
-        System.out.println("pubKeyString in createEncryptedGrpKey method: " + publicKeyString);
-
-        // Creating a Cipher object
-        Cipher createEncryptedKeyCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-
-        byte[] publicKeyBytes = Base64.decode(publicKeyString, Base64.DEFAULT);
-        KeyFactory kf = KeyFactory.getInstance("RSA"); // or "EC" or whatever
-        PublicKey regeneratedPublicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
-
-        //Initializing a Cipher object
-//        cipher.init(Cipher.ENCRYPT_MODE, (RSAPublicKey) getPublicKeyFromKeyStore(keyStore, alias));
-        createEncryptedKeyCipher.init(Cipher.ENCRYPT_MODE, regeneratedPublicKey);
-
-
-        //Add data to the cipher
-        String genGrpKey = generateRandomString();
-        System.out.println("genGrpKey: " + genGrpKey);
-
-        byte[] genGrpKeyBytes = genGrpKey.getBytes();
-
-//        System.out.println("cipher: " + cipher);
-        createEncryptedKeyCipher.update(genGrpKeyBytes);
-
-        //encrypting the data
-        byte[] cipherTextGroupKey = createEncryptedKeyCipher.doFinal();
-
-        String encodedCipherTextGroupKey = Base64.encodeToString(cipherTextGroupKey, Base64.DEFAULT);
-        System.out.println("encodedCipherTextGroupKey: " + encodedCipherTextGroupKey);
-
-        return encodedCipherTextGroupKey;
-    }
-
-    public static NewUserKeys getGroupKey(Context ctx, String alias) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException, CertificateException, KeyStoreException, NoSuchProviderException, InvalidAlgorithmParameterException, UnrecoverableEntryException, InvalidKeySpecException {
+    // used during registration
+    public static NewUserKeys getGroupKey(Context ctx, String alias) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException, CertificateException, KeyStoreException, NoSuchProviderException, InvalidAlgorithmParameterException, UnrecoverableEntryException, InvalidKeySpecException, NoSuchPaddingException, BadPaddingException, IllegalBlockSizeException {
 
         // 2) Setup KeyPairGenerator
         Calendar start = Calendar.getInstance();
@@ -126,39 +91,134 @@ public class KeyHelper {
         PrivateKey privateKey = pair.getPrivateKey();
         PublicKey publicKey = pair.getPublicKey();
 
+        Log.w("publicKeypublicKeypubli", Arrays.toString(publicKey.getEncoded()));
+        System.out.println("publicKeypublicKeypublicKeypublicKey " + publicKey.getFormat());
+        System.out.println("publicKeypublicKeypublicKeypublicKey " + publicKey.getAlgorithm());
+        System.out.println("publicKeypublicKeypublicKeypublicKey " + publicKey.getClass());
+
         // 4) Check PublicKeyString that will be stored in db
-        String pubKeyString = Base64.encodeToString(publicKey.getEncoded(), Base64.NO_PADDING);
+        String pubKeyString = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
+//        String pubKeyString = publicKey.toString();
         Log.d("  Original pubKeyString", pubKeyString);
-        Log.d("Original pubKeyStrBytes", Arrays.toString(pubKeyString.getBytes()));
-
-//        byte[] publicKeyBytes = Base64.decode(pubKeyString, Base64.DEFAULT);
-//        KeyFactory kf = KeyFactory.getInstance("RSA"); // or "EC" or whatever
-//        PublicKey regeneratedPublicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
-
-//        String regenPubKeyString = Base64.encodeToString(publicKey.getEncoded(), Base64.DEFAULT);
-//        Log.d("      regenPubKeyString", regenPubKeyString);
+        Log.d("Original pubKeyStrBytes", Arrays.toString(pubKeyString.getBytes("utf-8")));
 
         // 5) Generate a new group key string
         String genGrpKey = generateRandomString();
+
         Log.d("          New genGrpKey", genGrpKey);
-        Log.d("     New genGrpKeyBytes", Arrays.toString(genGrpKey.getBytes()));
-        byte[] genGrpKeyBytes = genGrpKey.getBytes();
+        Log.d("     New genGrpKeyBytes", Arrays.toString(genGrpKey.getBytes("utf-8")));
+        byte[] genGrpKeyBytes = genGrpKey.getBytes("utf-8");
 
         // 6) Creating a Cipher object and encrypt the group key
 
+
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+//        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         cipher.update(genGrpKeyBytes);
+        Log.e("cipher blk size getKeys", "" + cipher.getBlockSize() );
+        Log.e("cipher blk size getKeys", "" + cipher.getAlgorithm() );
+        Log.e("cipher blk size getKeys", "" + cipher.getParameters() );
         byte[] cipherTextGroupKey = cipher.doFinal();
 
         // 7) encode and test new encrypted group key
-        String encodedCipherTextGroupKey = Base64.encodeToString(cipherTextGroupKey, Base64.NO_PADDING);
+        String encodedCipherTextGroupKey = Base64.encodeToString(cipherTextGroupKey, Base64.DEFAULT);
         Log.d("GrpKeyEncry with pubkey", encodedCipherTextGroupKey);
 
+        // test
         String testDecryptedKey = decryptData(encodedCipherTextGroupKey, ctx, alias);
         Log.d("     Testing decryption", testDecryptedKey);
 
+        // test two recreate key and decrypt
+        String grpKeyEncryptedWithRecreatedPubKey = encryptGroupKeyUsingGivePubKeyString(pubKeyString, genGrpKey);
+        System.out.println("grpKeyEncryptedWithRecreatedPubKey ======== " + grpKeyEncryptedWithRecreatedPubKey);
+
+        String testDecryptedKey2 = decryptData(encodedCipherTextGroupKey, ctx, alias);
+        Log.d("   Testing decryption 2", testDecryptedKey2);
+
         return new NewUserKeys(encodedCipherTextGroupKey, pubKeyString);
+    }
+
+    // generates a random grp/post key string
+    // encrypts it with public key from the keystore
+    // returns the encrypted group key string
+    // assumes there is a public key stored in the keystore
+    public static String createEncryptedKey(String publicKeyString) throws UnrecoverableEntryException, NoSuchAlgorithmException, KeyStoreException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException, CertificateException, InvalidAlgorithmParameterException {
+
+
+        System.out.println("pubKeyString in createEncryptedGrpKey method: " + publicKeyString);
+
+        // Creating a Cipher object
+        Cipher createEncryptedKeyCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+
+        byte[] publicKeyBytes = Base64.decode(publicKeyString, Base64.DEFAULT);
+        KeyFactory kf = KeyFactory.getInstance("RSA"); // or "EC" or whatever
+        PublicKey regeneratedPublicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
+
+
+        //Initializing a Cipher object
+//        cipher.init(Cipher.ENCRYPT_MODE, (RSAPublicKey) getPublicKeyFromKeyStore(keyStore, alias));
+        createEncryptedKeyCipher.init(Cipher.ENCRYPT_MODE, regeneratedPublicKey);
+
+
+        //Add data to the cipher
+        String genGrpKey = generateRandomString();
+        System.out.println("genGrpKey: " + genGrpKey);
+
+        byte[] genGrpKeyBytes = genGrpKey.getBytes("utf-8");
+
+//        System.out.println("cipher: " + cipher);
+        createEncryptedKeyCipher.update(genGrpKeyBytes);
+
+        //encrypting the data
+        byte[] cipherTextGroupKey = createEncryptedKeyCipher.doFinal();
+
+        String encodedCipherTextGroupKey = Base64.encodeToString(cipherTextGroupKey, Base64.DEFAULT);
+        System.out.println("encodedCipherTextGroupKey: " + encodedCipherTextGroupKey);
+
+        return encodedCipherTextGroupKey;
+    }
+
+
+
+    // generates a random grp/post key string
+    // encrypts it with public key from the keystore
+    // returns the encrypted groupkeystring
+    // assumes there is a public key stored in the keystore
+
+    public static String encryptGroupKeyUsingGivePubKeyString(String publicKeyString, String decryptedGroupKey) throws UnrecoverableEntryException, NoSuchAlgorithmException, KeyStoreException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, IOException, CertificateException, InvalidAlgorithmParameterException {
+
+
+        System.out.println("pubKeyString in createEncryptedGrpKey method: " + publicKeyString);
+
+        // Creating a Cipher object
+        Cipher createEncryptedKeyCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+
+        byte[] publicKeyBytes = Base64.decode(publicKeyString, Base64.DEFAULT);
+        KeyFactory kf = KeyFactory.getInstance("RSA"); // or "EC" or whatever
+        PublicKey regeneratedPublicKey = kf.generatePublic(new X509EncodedKeySpec(publicKeyBytes));
+        // how to check if this key is same as original key?
+        System.out.println("regeneratedPublicKey" + regeneratedPublicKey);
+        System.out.println("regeneratedPublicKey" + regeneratedPublicKey.getClass());
+        System.out.println("regeneratedPublicKey" + regeneratedPublicKey.getAlgorithm());
+        System.out.println("regeneratedPublicKey" + regeneratedPublicKey.getFormat());
+        Log.w("regeneratedPublicKey", Arrays.toString(regeneratedPublicKey.getEncoded()));
+        //Initializing a Cipher object
+//        cipher.init(Cipher.ENCRYPT_MODE, (RSAPublicKey) getPublicKeyFromKeyStore(keyStore, alias));
+        createEncryptedKeyCipher.init(Cipher.ENCRYPT_MODE, regeneratedPublicKey);
+
+        byte[] DecGrpKeyBytes = decryptedGroupKey.getBytes("utf-8");
+
+//        System.out.println("cipher: " + cipher);
+        createEncryptedKeyCipher.update(DecGrpKeyBytes);
+
+        //encrypting the data
+        byte[] cipherTextGroupKey = createEncryptedKeyCipher.doFinal();
+
+        String encodedCipherTextGroupKey = Base64.encodeToString(cipherTextGroupKey, Base64.DEFAULT);
+        System.out.println("encodedCipherTextGroupKey: " + encodedCipherTextGroupKey);
+
+        return encodedCipherTextGroupKey;
     }
 
     @NonNull
@@ -167,26 +227,23 @@ public class KeyHelper {
             NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IOException,
             BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, CertificateException {
 
-        Enumeration<String> aliases = keyStore.aliases();
-        System.out.println(aliases);
-        Log.d("Getting ks entry: alias", alias);
+//        Enumeration<String> aliases = keyStore.aliases();
+//        System.out.println(aliases);
+//        Log.d("Getting ks entry: alias", alias);
 
         Keys pair = retrieveKey(alias, ctx);
-        PublicKey publicKey = pair.getPublicKey();
+
         PrivateKey privateKey = pair.getPrivateKey();
 
-        // 2) Creating and init Cipher object
-
-
-        Cipher decryptDataCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
-        decryptDataCipher.init(Cipher.DECRYPT_MODE, privateKey);
-
         // 3) encryptedGrpKey was Base64 encoded so it needs to be decoded first
-        byte[] decodedBytesOfGroupKey = Base64.decode(encryptedGrpKey.trim(), Base64.NO_PADDING);
+//        byte[] decodedBytesOfGroupKey = Base64.decode(encryptedGrpKey, Base64.DEFAULT);
+        byte[] decodedBytesOfGroupKey = Base64.decode(encryptedGrpKey, Base64.DEFAULT);
         Log.d(" decodedBytesOfGroupKey", Arrays.toString(decodedBytesOfGroupKey)); // correct
         Log.d(" decodedBytesOfGrpK len", "" + decodedBytesOfGroupKey.length);
 
-        // Decrypting the test using decodedBytesOfGroupKey
+        Cipher decryptDataCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        decryptDataCipher.init(Cipher.DECRYPT_MODE, privateKey);
+        Log.w("DataCipher.getBlockSiz", "" + decryptDataCipher.getBlockSize());
         decryptDataCipher.update(decodedBytesOfGroupKey);
         byte[] decipheredTextBytes = decryptDataCipher.doFinal();
         Log.d("    decipheredTextBytes", Arrays.toString(decipheredTextBytes)); // correct
@@ -195,10 +252,43 @@ public class KeyHelper {
         return new String(decipheredTextBytes);
     }
 
+//    @NonNull
+//    public static String decryptDataUsingGivenPublicKeyStr(String encryptedGrpKey, String pubkeyStr, Context ctx, String alias)
+//            throws UnrecoverableEntryException, NoSuchAlgorithmException, KeyStoreException,
+//            NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IOException,
+//            BadPaddingException, IllegalBlockSizeException, InvalidAlgorithmParameterException, CertificateException {
+//
+////        Enumeration<String> aliases = keyStore.aliases();
+////        System.out.println(aliases);
+////        Log.d("Getting ks entry: alias", alias);
+//
+//        Keys pair = retrieveKey(alias, ctx);
+//        PublicKey publicKey = pair.getPublicKey();
+//        PrivateKey privateKey = pair.getPrivateKey();
+//
+//        // 2) Creating and init Cipher object
+//        Cipher decryptDataCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+//        decryptDataCipher.init(Cipher.DECRYPT_MODE, privateKey);
+//
+//        // 3) encryptedGrpKey was Base64 encoded so it needs to be decoded first
+//        byte[] decodedBytesOfGroupKey = Base64.decode(encryptedGrpKey.trim(), Base64.DEFAULT);
+//        Log.d(" decodedBytesOfGroupKey", Arrays.toString(decodedBytesOfGroupKey)); // correct
+//        Log.d(" decodedBytesOfGrpK len", "" + decodedBytesOfGroupKey.length);
+//
+//        // Decrypting the test using decodedBytesOfGroupKey
+//        decryptDataCipher.update(decodedBytesOfGroupKey);
+//        byte[] decipheredTextBytes = decryptDataCipher.doFinal();
+//        Log.d("    decipheredTextBytes", Arrays.toString(decipheredTextBytes)); // correct
+//        Log.d("decipheredTextBytes Str", new String(decipheredTextBytes));
+//
+//        return new String(decipheredTextBytes);
+//    }
+
     public static String generateRandomString() {
         byte[] array = new byte[16];
         new Random().nextBytes(array);
         String generatedString = new String(Base64.encodeToString(array, Base64.DEFAULT)).substring(0, 16);
+        generatedString.replace("\n", "$");
 
         Log.d("        generatedString", generatedString);
         return generatedString;

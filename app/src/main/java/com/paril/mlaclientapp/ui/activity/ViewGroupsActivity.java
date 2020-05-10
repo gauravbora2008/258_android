@@ -18,6 +18,16 @@ import com.paril.mlaclientapp.util.SNPrefsManager;
 import com.paril.mlaclientapp.webservice.Api;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.SignatureException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +47,10 @@ public class ViewGroupsActivity extends AppCompatActivity {
     Intent currentIntent;
 
     List<GetUnjoinedGroupsModel> responseGroups;
+    SNPrefsManager prefsManager;
+    ArrayList<ViewUnjoinedGroupsItem> unjoinedGroupsList;
+
+    List<GetUnjoinedGroupsModel> joinedGroups;
 
     Map<Integer, String[]> groupData;
 
@@ -46,21 +60,43 @@ public class ViewGroupsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_groups);
         setToolbarTitle("View Groups");
 
+        currentIntent = getIntent();
+        unjoinedGroupsList = new ArrayList<>();
+
+        prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
+
         getUnjoinedGroups getUnjoinedGroupsCall = new getUnjoinedGroups();
         getUnjoinedGroupsCall.execute();
 
+
+        groupsRecyclerView = findViewById(R.id.view_groups_recycler_view);
+        groupsRecyclerView.setHasFixedSize(true);
+        groupsRVLayoutManager = new LinearLayoutManager(ViewGroupsActivity.this);
+        groupsRVAdapter = new viewGroupsAdapter(unjoinedGroupsList);
+        groupsRecyclerView.setLayoutManager(groupsRVLayoutManager);
+        groupsRecyclerView.setAdapter(groupsRVAdapter);
+
+        groupsRVAdapter.setOnItemClickListener(
+                new viewGroupsAdapter.OnItemClickListener() {
+
+                    @Override
+                    public void onJoinBtnClick(int position) throws CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException, KeyStoreException, SignatureException, InvalidKeyException, ClassNotFoundException, InvalidKeySpecException, NoSuchProviderException {
+                        sendAddRequest(position);
+                    }
+                });
+
+        groupsRVAdapter.notifyDataSetChanged();
     }
 
     class getUnjoinedGroups extends AsyncTask<Void, Void, String[]> {
 
         @Override
         protected String[] doInBackground(Void... voids) {
-            final Spinner dropdown;
 
             currentIntent = getIntent();
-            SNPrefsManager prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
 
-            List<GetUnjoinedGroupsModel> joinedGroups;
+            Log.d("Is is working?", "????");
+
             String notJoinedMemberId = prefsManager.getStringData("user_id");
             System.out.println("Sending Request for notJoinedMemberId : " + notJoinedMemberId);
             Call<List<GetUnjoinedGroupsModel>> getUnjoinedGroupsCall = Api.getClient().GetGroupsByNotAMemberId(notJoinedMemberId);
@@ -68,7 +104,6 @@ public class ViewGroupsActivity extends AppCompatActivity {
                 final Response<List<GetUnjoinedGroupsModel>> response = getUnjoinedGroupsCall.execute();
                 if (response != null && response.isSuccessful() & response.body() != null && response.body().size() > 0) {
 
-                    final ArrayList<ViewUnjoinedGroupsItem> unjoinedGroupsList = new ArrayList<>();
                     hideProgressDialog();
 
                     responseGroups = response.body();
@@ -76,35 +111,32 @@ public class ViewGroupsActivity extends AppCompatActivity {
                     for (int i = 0; i < responseGroups.size(); i++) {
 
                         unjoinedGroupsList.add(new ViewUnjoinedGroupsItem(
-                                responseGroups.get(i).group_id,
                                 responseGroups.get(i).group_owner_id,
-                                responseGroups.get(i).owner_fullname,
+                                responseGroups.get(i).group_id,
                                 responseGroups.get(i).group_name,
-                                responseGroups.get(i).group_key
+                                responseGroups.get(i).group_key,
+                                responseGroups.get(i).signature,
+                                responseGroups.get(i).public_key,
+                                responseGroups.get(i).owner_fullname
                         ));
                     }
+
+                    Log.d("Is is working?", "????");
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            groupsRecyclerView = (RecyclerView) findViewById(R.id.view_groups_recycler_view);
-                            groupsRecyclerView.setHasFixedSize(true);
-                            groupsRVLayoutManager = new LinearLayoutManager(ViewGroupsActivity.this);
-                            groupsRVAdapter = new viewGroupsAdapter(unjoinedGroupsList);
-                            groupsRecyclerView.setLayoutManager(groupsRVLayoutManager);
-                            groupsRecyclerView.setAdapter(groupsRVAdapter);
-
-                            groupsRVAdapter.setOnItemClickListener(new viewGroupsAdapter.OnItemClickListener() {
-
-                                @Override
-                                public void onJoinBtnClick(int position) {
-                                    sendAddRequest(position);
-                                }
-                            });
+                            groupsRVAdapter.notifyDataSetChanged();
                         }
                     });
 
                 } else {
+
+                    if (response.errorBody().toString().contains("PRIMARY KEY VIOLATION")) {
+                        showSnackBar(response.body().toString(), findViewById(R.id.activity_view_groups));
+                    }
+
+
                     hideProgressDialog();
                 }
             } catch (IOException e) {
@@ -114,19 +146,46 @@ public class ViewGroupsActivity extends AppCompatActivity {
         }
     }
 
-    private void sendAddRequest(int position) {
+    private void sendAddRequest(int position) throws IOException, ClassNotFoundException, CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException, SignatureException, InvalidKeyException, InvalidKeySpecException, NoSuchProviderException {
+
+        Log.d("sendAddRequest ", "sent");
 
         Intent currentIntent = getIntent();
 
         String user_id = currentIntent.getStringExtra("user_id");
-        String group_id = responseGroups.get(position).group_id;
-        String group_owner_id = responseGroups.get(position).group_owner_id;
-        Log.d(" user_id frm currIntent", user_id);
-        Log.d(" group_id from btnClick", group_id);
 
+        String joinRequestHash = KeyHelper2.generateRandomString();
 
-        SendJoinGroupRequestAPI sendJoinRequestCall = new SendJoinGroupRequestAPI();
-        sendJoinRequestCall.execute(user_id, group_id, group_owner_id);
+        // verify group key
+        Boolean groupKeyVerification = KeyHelper2.verifyData(
+                responseGroups.get(position).signature,
+                responseGroups.get(position).group_key,
+                responseGroups.get(position).public_key
+        );
+
+        if (groupKeyVerification) {
+            Log.d("Group key", "verified");
+
+            PrivateKey myPrivKey = (PrivateKey) KeyHelper2.deserializeKey(
+                    KeyHelper2.decodeB64(
+                            prefsManager.getStringData("privateKey")
+                    )
+            );
+
+            String signature = KeyHelper2.signData(joinRequestHash, myPrivKey);
+
+            SendJoinGroupRequestAPI sendJoinRequestCall = new SendJoinGroupRequestAPI();
+            sendJoinRequestCall.execute(
+                    user_id,
+                    responseGroups.get(position).group_id,
+                    responseGroups.get(position).group_owner_id,
+                    joinRequestHash,
+                    signature);
+        } else {
+
+            Log.d("Group key verification:", "FAILED!");
+
+        }
 
     }
 
@@ -134,7 +193,7 @@ public class ViewGroupsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            Call<String> sendJoinRequestCall = Api.getClient().CreateNewAddRequest(strings[0], strings[1], strings[2]);
+            Call<String> sendJoinRequestCall = Api.getClient().CreateNewAddRequest(strings[0], strings[1], strings[2], strings[3], strings[4]);
             try {
                 Response<String> response = sendJoinRequestCall.execute();
                 if (response != null && response.isSuccessful() & response.body() != null) {

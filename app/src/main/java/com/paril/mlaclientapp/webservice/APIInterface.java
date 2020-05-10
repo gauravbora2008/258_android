@@ -1,6 +1,7 @@
 package com.paril.mlaclientapp.webservice;
 
 import com.paril.mlaclientapp.model.GetGroupsModel;
+import com.paril.mlaclientapp.model.GetJoinConfirmationsModel;
 import com.paril.mlaclientapp.model.GetPostsModel;
 import com.paril.mlaclientapp.model.GetUnjoinedGroupsModel;
 import com.paril.mlaclientapp.model.MLAAdminDetails;
@@ -158,15 +159,18 @@ public interface APIInterface {
 
     // Social Network App - Spring 2020 - Gaurav Bora
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/Social/RegisterNewUser")
-    Call<SNRegisterNewUser> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKeyString") String publicKey, @Query("fullname") String fullname, @Query("encryptedGroupKey") String encryptedGroupKey);
+    Call<String> registerNewUser(@Query("username") String username, @Query("password") String password, @Query("publicKeyString") String publicKey, @Query("fullname") String fullname, @Query("encryptedGroupKey") String encryptedGroupKey, @Query("signature") String signedData);
 
     @POST("api/Social/LoginAuth")
     Call<List<SNUserLogin>> loginAuth(@Query("username") String username, @Query("password") String password);
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/Social/CreateNewGroup")
-    Call<String> createNewGroup(@Query("owner_id") String owner_id, @Query("group_name") String group_name, @Query("encryptedGroupKey") String encryptedGroupKey);
+    Call<String> createNewGroup(@Query("owner_id") String owner_id, @Query("group_name") String group_name, @Query("encryptedGroupKey") String encryptedGroupKey, @Query("signature") String signature);
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/Social/CreateNewPost")
     Call<String> createNewPost(@Query("author_id") String author_id, @Query("group_id") String group_id, @Query("post_key") String post_key, @Query("post_data") String post_data, @Query("timestamp") String timestamp);
 
@@ -179,18 +183,25 @@ public interface APIInterface {
     @GET("api/Social/GetPosts")
     Call<List<GetPostsModel>> getPosts(@Query("userId2") String userId);
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/Social/CreateNewAddRequest")
-    Call<String> CreateNewAddRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+    Call<String> CreateNewAddRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id, @Query("join_request_hash") String join_request_hash, @Query("signature") String signature);
 
     @GET("api/Social/GetPendingAddRequests")
     Call<List<ViewPendingRequestsItem>> GetPendingAddRequests(@Query("user_id") String user_id);
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/Social/ApproveGroupRequest")
-    Call<String> ApproveGroupRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+    Call<String> ApproveGroupRequest(@Query("group_owner_id") String group_owner_id, @Query("requester_id_for_approve") String requester_id,@Query("encryptedGroupKey") String encryptedGroupKey, @Query("group_id") String group_id, @Query("signature") String signedData);
 
-    @POST("api/Social/DenyGroupRequest")
-    Call<String> DenyGroupRequest(@Query("user_id") String user_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
+    @POST("api/Social/DenyAddRequest")
+    Call<String> DenyAddRequest(@Query("requester_id") String requester_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id);
 
+    @GET("api/Social/GetJoinConfirmations")
+    Call<List<GetJoinConfirmationsModel>> GetJoinConfirmations(@Query("user_idForJoinConfirmation") String requester_id);
+
+    @POST("api/Social/FinalizeJoin")
+    Call<String> FinalizeJoin(@Query("requester_id") String requester_id, @Query("group_id") String group_id, @Query("group_owner_id") String group_owner_id, @Query("encryptedGroupKey") String encryptedGroupKey, @Query("signature") String signature);
 
 
 }

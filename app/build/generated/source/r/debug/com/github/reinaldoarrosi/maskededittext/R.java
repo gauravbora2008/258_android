@@ -8,14 +8,14 @@ package com.github.reinaldoarrosi.maskededittext;
 
 public final class R {
     public static final class attr {
-        public static final int mask = 0x7f010137;
-        public static final int placeholder = 0x7f010138;
+        public static final int mask = 0x7f01014c;
+        public static final int placeholder = 0x7f01014d;
     }
     public static final class string {
-        public static final int app_name = 0x7f070022;
+        public static final int app_name = 0x7f080020;
     }
     public static final class styleable {
-        public static final int[] MaskedEditText = { 0x7f010137, 0x7f010138 };
+        public static final int[] MaskedEditText = { 0x7f01014c, 0x7f01014d };
         public static final int MaskedEditText_mask = 0;
         public static final int MaskedEditText_placeholder = 1;
     }

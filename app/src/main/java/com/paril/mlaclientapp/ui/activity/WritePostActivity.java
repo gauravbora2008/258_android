@@ -25,6 +25,7 @@ import com.paril.mlaclientapp.webservice.Api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -32,6 +33,9 @@ import java.security.KeyPair;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
@@ -69,10 +73,19 @@ public class WritePostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_write_post);
         setToolbarTitle("Write Post");
 
+        currentIntent = getIntent();
+
+        prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
+
         writePostET = (EditText) findViewById(R.id.write_post_edittext);
         writePostBtn = (Button) findViewById(R.id.write_post_submit_btn);
         groupsSpinner = (Spinner) findViewById(R.id.spinner1);
 
+        // Get groups this user is part of
+        getGroups groupCall = new getGroups();
+        groupCall.execute();
+
+        // setup write btn
         writePostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,115 +95,128 @@ public class WritePostActivity extends AppCompatActivity {
                 } else {
 
                     hideKeyboard();
-
-                    currentIntent = getIntent();
-
-                    // 1) Generate a post key, get user_id and get post data from ET
-                    String postKey = KeyHelper.generateRandomString();
-                    String postData = writePostET.getText().toString();
-                    prefsManager = new SNPrefsManager(getApplicationContext(), currentIntent.getStringExtra("username"));
                     String user_id = prefsManager.getStringData("user_id");
-                    String alias = prefsManager.getStringData("key_alias");;
+                    String alias = prefsManager.getStringData("key_alias");
 
-                    Log.d("                user_id", user_id);
-                    Log.d("                  alias", alias);
-
-                    // 2) decrypt group key using private key
+                    // my public key
                     try {
-                        Log.d("selectedGroupDetails[1]", selectedGroupDetails[1]);
-                        String decryptedGrpKey = KeyHelper.decryptData(selectedGroupDetails[1], getApplicationContext(), alias); // key is on index 1
-                        Log.d("   decrGrpKey writePost", decryptedGrpKey);
-
-                        // encrypt postData with postkey
-                        String postDataEncryptedWithPostKey = AESKeyHelper.encrypt(postData, postKey);
-
-                        // encrypt postKey with groupKey
-                        String encryptedPostKey = AESKeyHelper.encrypt(postKey, decryptedGrpKey);
-
-                        String decryptedPostKey = AESKeyHelper.decrypt(encryptedPostKey, decryptedGrpKey);
-                        String decryptedPostData = AESKeyHelper.decrypt(postDataEncryptedWithPostKey, decryptedPostKey);
-                        Log.d("      decryptedPostData", ""+decryptedPostData);
-
-
-                        NewPostModel _newPost = new NewPostModel(
-                                encryptedPostKey,
-                                selectedGroupId,
-                                postDataEncryptedWithPostKey,
-                                user_id
+                        PublicKey myPubKey = (PublicKey) KeyHelper2.deserializeKey(
+                                KeyHelper2.decodeB64(
+                                        prefsManager.getStringData("publicKey")
+                                )
                         );
 
-                        writePostAPI writePostCall = new writePostAPI(getApplicationContext());
-                        writePostCall.execute(
-                                _newPost.getAuthor_id(),
-                                _newPost.getGroup_id(),
-                                _newPost.getPost_key(),
-                                _newPost.getPost_data(),
-                                _newPost.getTimestamp());
 
-                    } catch (UnrecoverableEntryException e) {
+//                      3) verify group key
+                        Boolean groupKeyVerificationResult = KeyHelper2.verifyData(
+//                                alias, without and keystore
+                                selectedGroupDetails[2], // sign
+                                selectedGroupDetails[1], // grp key
+                                selectedGroupDetails[3] // pub key
+                        );
+
+                        // 4) check if verification succeeds
+                        if (groupKeyVerificationResult) {
+
+                            Log.d("Group key ", "VERIFIED!");
+
+                            String grpKeyStr = selectedGroupDetails[1];
+
+                            byte[] grpKeyBytes = KeyHelper2.decodeB64(grpKeyStr);
+
+                            PrivateKey privKey = (PrivateKey) KeyHelper2.deserializeKey(
+                                    KeyHelper2.decodeB64(
+                                            prefsManager.getStringData("privateKey")
+                                    )
+                            );
+
+                            byte[] decryptedGrpKeyBytes = KeyHelper2.decryptGroupKey(grpKeyBytes, privKey);
+
+                            System.out.println("decryptedGrpKeyBytes " + KeyHelper2.encodeB64(decryptedGrpKeyBytes));
+                            System.out.println("length " + decryptedGrpKeyBytes.length);
+                            System.out.println("data " + Arrays.toString(decryptedGrpKeyBytes));
+
+//                            // 1) generates 16 bytes
+                            byte[] postKeyBytes = KeyHelper2.generateRandomBytes();
+//
+//                            System.out.println("postKeyBytes " + Arrays.toString(postKeyBytes));
+//
+//                            // 2) get post data in bytes
+                            String postData = writePostET.getText().toString();
+                            byte[] postDataBytes = postData.getBytes("UTF-8");
+//
+//                            // 3) encrypt postData with postKeyBytes
+                            byte[] encryptedPostData = AESKeyHelper.encrypt(
+                                    postDataBytes,
+                                    postKeyBytes);
+
+                            byte[] decryptedGrpKeyBytesCopy = Arrays.copyOf(decryptedGrpKeyBytes, 16);
+
+                            System.out.println("decryptedGrpKeyBytes " + KeyHelper2.encodeB64(decryptedGrpKeyBytes));
+                            System.out.println("length " + decryptedGrpKeyBytes.length);
+                            System.out.println("data " + Arrays.toString(decryptedGrpKeyBytes));
+
+//                          // encrypt postKey with groupKey
+                            byte[] encryptedPostKeyBytes = AESKeyHelper.encrypt(postKeyBytes, decryptedGrpKeyBytes);
+
+                            // test - decrypt post key
+//                            String decryptedPostKey = AESKeyHelper.decrypt(encryptedPostKeyBytes, KeyHelper2.encodeB64(decryptedGrpKeyBytes));
+//
+//                            // decrypt post data
+//                            String decryptedPostData = AESKeyHelper.decrypt(encryptedPostData, decryptedPostKey);
+//                            Log.d("decryptedPostData", decryptedPostData);
+                            // test decryption ENDS
+
+//                                    // create a new post object
+                            NewPostModel _newPost = new NewPostModel(
+                                    KeyHelper2.encodeB64(encryptedPostKeyBytes),
+                                    selectedGroupId,
+                                    KeyHelper2.encodeB64(encryptedPostData),
+                                    user_id
+                            );
+//
+//                            // send data
+                            writePostAPI writePostCall = new writePostAPI(getApplicationContext());
+                            writePostCall.execute(
+                                    _newPost.getAuthor_id(),
+                                    _newPost.getGroup_id(),
+                                    _newPost.getPost_key(),
+                                    _newPost.getPost_data(),
+                                    _newPost.getTimestamp());
+
+                        } else {
+                            Log.d("Group key ", "verification failed !");
+                        }
+
+                    } catch (IOException | ClassNotFoundException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException | InvalidKeySpecException | CertificateException | NoSuchProviderException | UnrecoverableEntryException | NoSuchAlgorithmException | KeyStoreException | InvalidAlgorithmParameterException | InvalidKeyException e) {
                         e.printStackTrace();
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    } catch (KeyStoreException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchProviderException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchPaddingException e) {
-                        e.printStackTrace();
-                    } catch (InvalidKeyException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (BadPaddingException e) {
-                        e.printStackTrace();
-                    } catch (IllegalBlockSizeException e) {
-                        e.printStackTrace();
-                    } catch (InvalidAlgorithmParameterException e) {
-                        e.printStackTrace();
-                    } catch (CertificateException e) {
+                    } catch (SignatureException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
         });
 
-        // Get groups this user is part of
-        getGroups groupCall = new getGroups();
-        groupCall.execute();
-
-        // set current groud id when a group is selected
+        // set current group id when a group is selected
         groupsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
                 // your code here
                 String _value = groupsSpinner.getSelectedItem().toString();
-//                String _grpid = groupData.get(_value);
-
 
                 selectedGroupId = _value.split("[.]")[0];
                 Log.d("        selectedGroupId", selectedGroupId);
 
                 selectedGroupDetails = groupData.get(Integer.parseInt(selectedGroupId));
-//                String _selectedGroupDetails0 = groupData.get(selectedGroupId).toString();
-//                String _selectedGroupDetails1 = groupData.get(selectedGroupId);
-//                groupData.
-
-//                Log.v("                  value", "" + _value);
-                Log.v("                     id", "this is split" + _value.split("[.]")[0]);
-                Log.v("   selectedGroupDetails", "this is map value:" + Arrays.toString(selectedGroupDetails));
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
             }
 
         });
-
-
     }
 
     public void setToolbarTitle(String title) {
@@ -204,24 +230,6 @@ public class WritePostActivity extends AppCompatActivity {
         public writePostAPI(Context context) {
             appContext = context;
         }
-
-//        @Override
-//        protected SNUserLogin doInBackground(String... params) {
-//            SNUserLogin login = new SNUserLogin();
-//            System.out.println("params============== "+ params[0] + " " + params[1]);
-//            Call<List<SNUserLogin>> loginCallAuth = Api.getClient().loginAuth(params[0], params[1]);
-//            try {
-//                Response<List<SNUserLogin>> respAuth = loginCallAuth.execute();
-//                if (respAuth != null && respAuth.isSuccessful() & respAuth.body() != null && respAuth.body().size() > 0) {
-//                    login = respAuth.body().get(0);
-//                    System.out.println(login.user_id + " ...... " + login.fullname);
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return login;
-//        }
 
         @Override
         protected Void doInBackground(String... params) {
@@ -260,31 +268,37 @@ public class WritePostActivity extends AppCompatActivity {
 
             List<GetGroupsModel> joinedGroups;
             String userId = prefsManager.getStringData("user_id");
-            System.out.println("Sending Request for userId : " + userId);
+
             Call<List<GetGroupsModel>> callAuth = Api.getClient().GetGroupsByMemberId(userId);
             try {
                 Response<List<GetGroupsModel>> respAuth = callAuth.execute();
+
                 if (respAuth != null && respAuth.isSuccessful() & respAuth.body() != null && respAuth.body().size() > 0) {
+
                     joinedGroups = respAuth.body();
                     System.out.println("joinedGroups " + Arrays.toString(joinedGroups.toArray()));
+
                     groupData = new HashMap<Integer, String[]>();
+
                     String[] groupItems = new String[joinedGroups.size()];
+
                     for (int i = 0; i < joinedGroups.size(); i++) {
                         groupItems[i] = joinedGroups.get(i).group_id + ". " + joinedGroups.get(i).group_name;
-                        String[] _groupDetails = {joinedGroups.get(i).group_name, joinedGroups.get(i).group_key};
+                        String[] _groupDetails = {
+                                joinedGroups.get(i).group_name,
+                                joinedGroups.get(i).group_key,
+                                joinedGroups.get(i).signature,
+                                joinedGroups.get(i).grp_ownrs_pub_key,
+                        };
                         groupData.put(joinedGroups.get(i).group_id, _groupDetails);
                     }
+
                     System.out.println(Arrays.toString(groupItems));
 
-                    //get the spinner from the xml.
-                    dropdown = (Spinner) findViewById(R.id.spinner1);
+                    dropdown = findViewById(R.id.spinner1);
 
-                    //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-                    //There are multiple variations of this, but this is the basic variant.
                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(WritePostActivity.this, android.R.layout.simple_spinner_dropdown_item, groupItems);
-                    //set the spinners adapter to the previously created one.
 
-                    // setAdapter needs to run on main ui thread
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

@@ -410,18 +410,18 @@
                 "to": {
                     "startLine": 2,
                     "startColumn": 4,
-                    "startOffset": 55,
+                    "startOffset": 105,
                     "endColumn": 107,
-                    "endOffset": 158
+                    "endOffset": 208
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 55,
+                        "startOffset": 105,
                         "endColumn": 107,
-                        "endOffset": 158
+                        "endOffset": 208
                     }
                 }
             },
@@ -429,18 +429,18 @@
                 "to": {
                     "startLine": 3,
                     "startColumn": 4,
-                    "startOffset": 163,
-                    "endColumn": 107,
-                    "endOffset": 266
+                    "startOffset": 213,
+                    "endColumn": 99,
+                    "endOffset": 308
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 163,
-                        "endColumn": 107,
-                        "endOffset": 266
+                        "startOffset": 213,
+                        "endColumn": 99,
+                        "endOffset": 308
                     }
                 }
             },
@@ -448,18 +448,18 @@
                 "to": {
                     "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 271,
-                    "endColumn": 122,
-                    "endOffset": 389
+                    "startOffset": 313,
+                    "endColumn": 100,
+                    "endOffset": 409
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 271,
-                        "endColumn": 122,
-                        "endOffset": 389
+                        "startOffset": 313,
+                        "endColumn": 100,
+                        "endOffset": 409
                     }
                 }
             },
@@ -467,18 +467,18 @@
                 "to": {
                     "startLine": 5,
                     "startColumn": 4,
-                    "startOffset": 394,
-                    "endColumn": 99,
-                    "endOffset": 489
+                    "startOffset": 414,
+                    "endColumn": 85,
+                    "endOffset": 495
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 394,
-                        "endColumn": 99,
-                        "endOffset": 489
+                        "startOffset": 414,
+                        "endColumn": 85,
+                        "endOffset": 495
                     }
                 }
             },
@@ -486,18 +486,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 494,
-                    "endColumn": 100,
-                    "endOffset": 590
+                    "startOffset": 500,
+                    "endColumn": 104,
+                    "endOffset": 600
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 494,
-                        "endColumn": 100,
-                        "endOffset": 590
+                        "startOffset": 500,
+                        "endColumn": 104,
+                        "endOffset": 600
                     }
                 }
             },
@@ -505,18 +505,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 595,
-                    "endColumn": 85,
-                    "endOffset": 676
+                    "startOffset": 605,
+                    "endColumn": 117,
+                    "endOffset": 718
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 595,
-                        "endColumn": 85,
-                        "endOffset": 676
+                        "startOffset": 605,
+                        "endColumn": 117,
+                        "endOffset": 718
                     }
                 }
             },
@@ -524,18 +524,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 681,
-                    "endColumn": 104,
-                    "endOffset": 781
+                    "startOffset": 723,
+                    "endColumn": 86,
+                    "endOffset": 805
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 681,
-                        "endColumn": 104,
-                        "endOffset": 781
+                        "startOffset": 723,
+                        "endColumn": 86,
+                        "endOffset": 805
                     }
                 }
             },
@@ -543,18 +543,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 786,
-                    "endColumn": 117,
-                    "endOffset": 899
+                    "startOffset": 810,
+                    "endColumn": 81,
+                    "endOffset": 887
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 786,
-                        "endColumn": 117,
-                        "endOffset": 899
+                        "startOffset": 810,
+                        "endColumn": 81,
+                        "endOffset": 887
                     }
                 }
             },
@@ -562,18 +562,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 904,
-                    "endColumn": 86,
-                    "endOffset": 986
+                    "startOffset": 892,
+                    "endColumn": 79,
+                    "endOffset": 967
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 904,
-                        "endColumn": 86,
-                        "endOffset": 986
+                        "startOffset": 892,
+                        "endColumn": 79,
+                        "endOffset": 967
                     }
                 }
             },
@@ -581,18 +581,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 991,
-                    "endColumn": 81,
-                    "endOffset": 1068
+                    "startOffset": 972,
+                    "endColumn": 106,
+                    "endOffset": 1074
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 991,
-                        "endColumn": 81,
-                        "endOffset": 1068
+                        "startOffset": 972,
+                        "endColumn": 106,
+                        "endOffset": 1074
                     }
                 }
             },
@@ -600,18 +600,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1073,
-                    "endColumn": 79,
-                    "endOffset": 1148
+                    "startOffset": 1079,
+                    "endColumn": 102,
+                    "endOffset": 1177
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 1073,
-                        "endColumn": 79,
-                        "endOffset": 1148
+                        "startOffset": 1079,
+                        "endColumn": 102,
+                        "endOffset": 1177
                     }
                 }
             },
@@ -619,18 +619,18 @@
                 "to": {
                     "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 1153,
-                    "endColumn": 106,
-                    "endOffset": 1255
+                    "startOffset": 1182,
+                    "endColumn": 96,
+                    "endOffset": 1274
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 1153,
-                        "endColumn": 106,
-                        "endOffset": 1255
+                        "startOffset": 1182,
+                        "endColumn": 96,
+                        "endOffset": 1274
                     }
                 }
             },
@@ -638,18 +638,18 @@
                 "to": {
                     "startLine": 14,
                     "startColumn": 4,
-                    "startOffset": 1260,
-                    "endColumn": 102,
-                    "endOffset": 1358
+                    "startOffset": 1279,
+                    "endColumn": 105,
+                    "endOffset": 1380
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
-                        "startOffset": 1260,
-                        "endColumn": 102,
-                        "endOffset": 1358
+                        "startOffset": 1279,
+                        "endColumn": 105,
+                        "endOffset": 1380
                     }
                 }
             },
@@ -657,18 +657,18 @@
                 "to": {
                     "startLine": 15,
                     "startColumn": 4,
-                    "startOffset": 1363,
-                    "endColumn": 96,
-                    "endOffset": 1455
+                    "startOffset": 1385,
+                    "endColumn": 98,
+                    "endOffset": 1479
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
-                        "startOffset": 1363,
-                        "endColumn": 96,
-                        "endOffset": 1455
+                        "startOffset": 1385,
+                        "endColumn": 98,
+                        "endOffset": 1479
                     }
                 }
             },
@@ -676,18 +676,18 @@
                 "to": {
                     "startLine": 16,
                     "startColumn": 4,
-                    "startOffset": 1460,
-                    "endColumn": 105,
-                    "endOffset": 1561
+                    "startOffset": 1484,
+                    "endColumn": 103,
+                    "endOffset": 1583
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
-                        "startOffset": 1460,
-                        "endColumn": 105,
-                        "endOffset": 1561
+                        "startOffset": 1484,
+                        "endColumn": 103,
+                        "endOffset": 1583
                     }
                 }
             },
@@ -695,18 +695,18 @@
                 "to": {
                     "startLine": 17,
                     "startColumn": 4,
-                    "startOffset": 1566,
-                    "endColumn": 98,
-                    "endOffset": 1660
+                    "startOffset": 1588,
+                    "endColumn": 162,
+                    "endOffset": 1746
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
-                        "startOffset": 1566,
-                        "endColumn": 98,
-                        "endOffset": 1660
+                        "startOffset": 1588,
+                        "endColumn": 162,
+                        "endOffset": 1746
                     }
                 }
             },
@@ -714,18 +714,18 @@
                 "to": {
                     "startLine": 18,
                     "startColumn": 4,
-                    "startOffset": 1665,
-                    "endColumn": 103,
-                    "endOffset": 1764
+                    "startOffset": 1751,
+                    "endColumn": 98,
+                    "endOffset": 1845
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
-                        "startOffset": 1665,
-                        "endColumn": 103,
-                        "endOffset": 1764
+                        "startOffset": 1751,
+                        "endColumn": 98,
+                        "endOffset": 1845
                     }
                 }
             },
@@ -733,18 +733,18 @@
                 "to": {
                     "startLine": 19,
                     "startColumn": 4,
-                    "startOffset": 1769,
-                    "endColumn": 118,
-                    "endOffset": 1883
+                    "startOffset": 1850,
+                    "endColumn": 79,
+                    "endOffset": 1925
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\8c2e31b835f37158acc6496de28ce653c5522b41\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
-                        "startOffset": 1769,
-                        "endColumn": 118,
-                        "endOffset": 1883
+                        "startOffset": 1850,
+                        "endColumn": 79,
+                        "endOffset": 1925
                     }
                 }
             },
@@ -752,56 +752,18 @@
                 "to": {
                     "startLine": 20,
                     "startColumn": 4,
-                    "startOffset": 1888,
-                    "endColumn": 98,
-                    "endOffset": 1982
-                },
-                "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
-                    "position": {
-                        "startLine": 20,
-                        "startColumn": 4,
-                        "startOffset": 1888,
-                        "endColumn": 98,
-                        "endOffset": 1982
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 21,
-                    "startColumn": 4,
-                    "startOffset": 1987,
-                    "endColumn": 79,
-                    "endOffset": 2062
-                },
-                "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
-                    "position": {
-                        "startLine": 21,
-                        "startColumn": 4,
-                        "startOffset": 1987,
-                        "endColumn": 79,
-                        "endOffset": 2062
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 22,
-                    "startColumn": 4,
-                    "startOffset": 2067,
+                    "startOffset": 1930,
                     "endColumn": 100,
-                    "endOffset": 2163
+                    "endOffset": 2026
                 },
                 "from": {
-                    "file": "C:\\Users\\dell\\.android\\build-cache\\ccd379577ca89129cf774700edc9600e0cc2f76c\\output\\res\\values-fi\\values-fi.xml",
+                    "file": "C:\\Users\\dell\\.android\\build-cache\\fed487272baf79a2c7154c0ebbc27e19f84927c4\\output\\res\\values-fi\\values-fi.xml",
                     "position": {
-                        "startLine": 22,
+                        "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 2067,
+                        "startOffset": 55,
                         "endColumn": 100,
-                        "endOffset": 2163
+                        "endOffset": 151
                     }
                 }
             }

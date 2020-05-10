@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="22"
-        android:targetSdkVersion="24" />
+        android:minSdkVersion="23"
+        android:targetSdkVersion="27" />
 
     <uses-feature
         android:name="android.hardware.microphone"
@@ -20,10 +20,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-
-    <meta-data
-        android:name="android.support.VERSION"
-        android:value="25.3.0" />
 
     <application
         android:allowBackup="true"
@@ -88,15 +84,17 @@
             android:name="com.paril.mlaclientapp.ui.activity.MLASocialNetwork"
             android:label="@string/title_activity_mlasocial_network"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.paril.mlaclientapp.ui.activity.SN_Login"
+            android:label="@string/title_activity_mlasocial_network"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.paril.mlaclientapp.ui.activity.SN_Login"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.paril.mlaclientapp.ui.activity.SNHomeActivity"
             android:label="@string/title_activity_snhome"
@@ -115,6 +113,10 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
     </application>
 
 </manifest>
